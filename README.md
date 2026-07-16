@@ -8,7 +8,7 @@ packages for Debian Linux distribution.
 
 ---
 
-## TODO
+## TODO
 
 - [ ] Build COSMIC components with Rust on local Debian testing
 - [ ] Tests COSMIC DE on local Debian testing
