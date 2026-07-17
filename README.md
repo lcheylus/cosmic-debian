@@ -10,6 +10,9 @@ packages for Debian Linux distribution.
 
 ## Components of COSMIC Desktop
 
+List of COSMIC components with status :
+- local build on Debian testing distribution : OK | NOK
+- GitHub job to build component
 
 | COSMIC component | Build on Debian testing | GitHub job for build |
 |------------------|:-----------------------:|:--------------------:|
