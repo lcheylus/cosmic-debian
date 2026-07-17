@@ -14,9 +14,35 @@ List of COSMIC components with status :
 - local build on Debian testing distribution : OK | NOK
 - GitHub job to build component
 
-| COSMIC component | Build on Debian testing | GitHub job for build |
-|------------------|:-----------------------:|:--------------------:|
-| cosmic-applets   | -                       | -                    |
+| COSMIC component          | Build on Debian testing | GitHub job for build |
+|---------------------------|:-----------------------:|:--------------------:|
+| cosmic-applets            | -                       | -                    |
+| cosmic-applibrary         | -                       | -                    |
+| cosmic-bg                 | -                       | -                    |
+| cosmic-comp               | -                       | -                    |
+| cosmic-edit               | -                       | -                    |
+| cosmic-files              | -                       | -                    |
+| cosmic-greeter            | -                       | -                    |
+| cosmic-icons              | -                       | -                    |
+| cosmic-idle               | -                       | -                    |
+| cosmic-initial-setup      | -                       | -                    |
+| cosmic-launcher           | -                       | -                    |
+| cosmic-monitor            | -                       | -                    |
+| cosmic-notifications      | -                       | -                    |
+| cosmic-osd                | -                       | -                    |
+| cosmic-panel              | -                       | -                    |
+| cosmic-player             | -                       | -                    |
+| cosmic-randr              | -                       | -                    |
+| cosmic-screenshot         | -                       | -                    |
+| cosmic-session            | -                       | -                    |
+| cosmic-settings           | -                       | -                    |
+| cosmic-settings-daemon    | -                       | -                    |
+| cosmic-store              | -                       | -                    |
+| cosmic-term               | -                       | -                    |
+| cosmic-wallpapers         | -                       | -                    |
+| cosmic-workspaces-epoch   | -                       | -                    |
+| pop-launcher              | -                       | -                    |
+| xdg-desktop-portal-cosmic | -                       | -                    |
 
 ---
 
