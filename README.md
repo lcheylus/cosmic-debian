@@ -46,7 +46,7 @@ component needs `pop-icon-theme` package built from [icon-theme repository](http
 | [cosmic-store](https://github.com/pop-os/cosmic-store)                           | -                       | -                    |
 | [cosmic-term](https://github.com/pop-os/cosmic-term)                             | -                       | -                    |
 | [cosmic-wallpapers](https://github.com/pop-os/cosmic-wallpapers)                 | -                       | -                    |
-| [cosmic-workspaces-epoch](https://github.com/pop-os/cosmic-workspaces-epoch)     | -                       | -                    |
+| [cosmic-workspaces](https://github.com/pop-os/cosmic-workspaces-epoch)           | -                       | -                    |
 | [pop-launcher](https://github.com/pop-os/pop-launcher)                           | -                       | -                    |
 | [xdg-desktop-portal-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic) | -                       | -                    |
 
