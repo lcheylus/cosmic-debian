@@ -17,6 +17,9 @@ List of COSMIC components with status:
 Each component has a `debian` directory in its tree with files to build the
 corresponding Debian package.
 
+Some components require additional dependencies. For exemple, `cosmic-icons`
+component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
+
 | COSMIC component                                                                 | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------------------------|:-----------------------:|:--------------------:|
 | [cosmic-applets](https://github.com/pop-os/cosmic-applets)                       | -                       | -                    |
