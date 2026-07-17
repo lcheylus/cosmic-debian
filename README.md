@@ -1,6 +1,8 @@
-# COSMIC DE packages for Debian distribution
+# WIP - COSMIC DE packages for Debian distribution
 
-[WIP] This repository contains utils and workflows to build
+**Work in Progress**
+
+This repository contains utils and workflows to build
 [COSMIC](https://system76.com/cosmic) desktop environment and Wayland compositor
 packages for Debian Linux distribution.
 
@@ -10,15 +12,15 @@ packages for Debian Linux distribution.
 
 ## Components of COSMIC Desktop
 
-List of COSMIC components with status:
-- local build on Debian testing distribution : OK | NOK
-- GitHub job to build component
-
 Each component has a `debian` directory in its tree with files to build the
 corresponding Debian package.
 
 Some components require additional dependencies. For exemple, `cosmic-icons`
 component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
+
+List of COSMIC components with status:
+- local build on Debian testing distribution : OK | NOK
+- GitHub job to build component
 
 | COSMIC component                                                                 | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------------------------|:-----------------------:|:--------------------:|
