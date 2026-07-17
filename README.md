@@ -8,6 +8,15 @@ packages for Debian Linux distribution.
 
 ---
 
+## Components of COSMIC Desktop
+
+
+| COSMIC component | Build on Debian testing | GitHub job for build |
+|------------------|:-----------------------:|:--------------------:|
+| cosmic-applets   | -                       | -                    |
+
+---
+
 ## TODO
 
 - [ ] Build COSMIC components with Rust on local Debian testing
