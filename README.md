@@ -49,7 +49,7 @@ List of COSMIC components with status:
 
 List of [COSMIC Apps](https://system76.com/cosmic/apps)
 
-| COSMIC component                                          | Description       | Build on Debian testing | GitHub job for build |
+| COSMIC app                                                | Description       | Build on Debian testing | GitHub job for build |
 |-----------------------------------------------------------|-------------------|:-----------------------:|:--------------------:|
 | [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | -                       | -                    |
 | [cosmic-files](https://github.com/pop-os/cosmic-files)    | Files Manager     | -                       | -                    |
