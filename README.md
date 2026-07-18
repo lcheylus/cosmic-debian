@@ -28,8 +28,6 @@ List of COSMIC components with status:
 | [cosmic-applibrary](https://github.com/pop-os/cosmic-applibrary)                 | -                       | -                    |
 | [cosmic-bg](https://github.com/pop-os/cosmic-bg)                                 | -                       | -                    |
 | [cosmic-comp](https://github.com/pop-os/cosmic-comp)                             | -                       | -                    |
-| [cosmic-edit](https://github.com/pop-os/cosmic-edit)                             | -                       | -                    |
-| [cosmic-files](https://github.com/pop-os/cosmic-files)                           | -                       | -                    |
 | [cosmic-greeter](https://github.com/pop-os/cosmic-greeter)                       | -                       | -                    |
 | [cosmic-icons](https://github.com/pop-os/cosmic-icons)                           | -                       | -                    |
 | [cosmic-idle](https://github.com/pop-os/cosmic-idle)                             | -                       | -                    |
@@ -39,18 +37,25 @@ List of COSMIC components with status:
 | [cosmic-notifications](https://github.com/pop-os/cosmic-notifications)           | -                       | -                    |
 | [cosmic-osd](https://github.com/pop-os/cosmic-osd)                               | -                       | -                    |
 | [cosmic-panel](https://github.com/pop-os/cosmic-panel)                           | -                       | -                    |
-| [cosmic-player](https://github.com/pop-os/cosmic-player)                         | -                       | -                    |
 | [cosmic-randr](https://github.com/pop-os/cosmic-randr)                           | -                       | -                    |
 | [cosmic-screenshot](https://github.com/pop-os/cosmic-screenshot)                 | -                       | -                    |
 | [cosmic-session](https://github.com/pop-os/cosmic-session)                       | -                       | -                    |
 | [cosmic-settings](https://github.com/pop-os/cosmic-settings)                     | -                       | -                    |
 | [cosmic-settings-daemon](https://github.com/pop-os/cosmic-settings-daemon)       | -                       | -                    |
-| [cosmic-store](https://github.com/pop-os/cosmic-store)                           | -                       | -                    |
-| [cosmic-term](https://github.com/pop-os/cosmic-term)                             | -                       | -                    |
 | [cosmic-wallpapers](https://github.com/pop-os/cosmic-wallpapers)                 | -                       | -                    |
 | [cosmic-workspaces](https://github.com/pop-os/cosmic-workspaces-epoch)           | -                       | -                    |
 | [pop-launcher](https://github.com/pop-os/pop-launcher)                           | -                       | -                    |
 | [xdg-desktop-portal-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic) | -                       | -                    |
+
+List of [COSMIC Apps](https://system76.com/cosmic/apps)
+
+| COSMIC component                                          | Description       | Build on Debian testing | GitHub job for build |
+|-----------------------------------------------------------|-------------------|:-----------------------:|:--------------------:|
+| [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | -                       | -                    |
+| [cosmic-files](https://github.com/pop-os/cosmic-files)    | Files Manager     | -                       | -                    |
+| [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | -                       | -                    |
+| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Stor         | -                       | -                    |
+| [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | -                       | -                    |
 
 ---
 
