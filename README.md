@@ -59,9 +59,10 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 
 List of additional packages (Depends from COSMIC components)
 
-| COSMIC app                                                | Needed by       | Build on Debian testing | GitHub job for build |
-|-----------------------------------------------------------|-----------------|:-----------------------:|:--------------------:|
-| [pop-icon-theme](https://github.com/pop-os/icon-theme)    | ?               | -                       | -                    |
+| COSMIC app                                              | Needed by       | Build on Debian testing | GitHub job for build |
+|---------------------------------------------------------|-----------------|:-----------------------:|:--------------------:|
+| [pop-fonts](https://github.com/pop-os/fonts)            | ?               | -                       | -                    |
+| [pop-icon-theme](https://github.com/pop-os/icon-theme)  | ?               | -                       | -                    |
 
 ---
 
