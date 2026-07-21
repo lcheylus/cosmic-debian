@@ -29,7 +29,7 @@ List of COSMIC components with status:
 | [cosmic-bg](https://github.com/pop-os/cosmic-bg)                                 | -                       | -                    |
 | [cosmic-comp](https://github.com/pop-os/cosmic-comp)                             | -                       | -                    |
 | [cosmic-greeter](https://github.com/pop-os/cosmic-greeter)                       | -                       | -                    |
-| [cosmic-icons](https://github.com/pop-os/cosmic-icons)                           | -                       | -                    |
+| [cosmic-icons](https://github.com/pop-os/cosmic-icons)                           | ✅                      | -                    |
 | [cosmic-idle](https://github.com/pop-os/cosmic-idle)                             | -                       | -                    |
 | [cosmic-initial-setup](https://github.com/pop-os/cosmic-initial-setup)           | -                       | -                    |
 | [cosmic-launcher](https://github.com/pop-os/cosmic-launcher)                     | -                       | -                    |
@@ -62,7 +62,7 @@ List of additional packages (Depends from COSMIC components)
 | COSMIC app                                              | Needed by       | Build on Debian testing | GitHub job for build |
 |---------------------------------------------------------|-----------------|:-----------------------:|:--------------------:|
 | [pop-fonts](https://github.com/pop-os/fonts)            | ?               | -                       | -                    |
-| [pop-icon-theme](https://github.com/pop-os/icon-theme)  | cosmic-icons    | -                       | -                    |
+| [pop-icon-theme](https://github.com/pop-os/icon-theme)  | cosmic-icons    | ✅                      | -                    |
 
 ---
 
