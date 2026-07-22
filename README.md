@@ -15,9 +15,6 @@ packages for Debian Linux distribution.
 Each component has a `debian` directory in its tree with files to build the
 corresponding Debian package.
 
-Some components require additional dependencies. For exemple, `cosmic-icons`
-component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
-
 List of COSMIC components with status:
 - local build on Debian testing distribution : OK | NOK
 - GitHub job to build component
@@ -56,6 +53,9 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 | [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | -                       | -                    |
 | [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Stor         | -                       | -                    |
 | [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | -                       | -                    |
+
+Some components require additional dependencies. For exemple, `cosmic-icons`
+component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
 
 List of additional packages (Depends from COSMIC components)
 
