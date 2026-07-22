@@ -59,11 +59,12 @@ component needs `pop-icon-theme` package built from [icon-theme repository](http
 
 List of additional packages (Depends from COSMIC components)
 
-| Package                                                 | Needed by              | Build on Debian testing | GitHub job for build |
-|---------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
-| [libcosmic](https://github.com/pop-os/libcosmic/)       | Most of the components | ✅                      | -                    |
-| [pop-fonts](https://github.com/pop-os/fonts)            | ?                      | ✅                      | -                    |
-| [pop-icon-theme](https://github.com/pop-os/icon-theme)  | cosmic-icons           | ✅                      | -                    |
+| Package                                                        | Needed by              | Build on Debian testing | GitHub job for build |
+|----------------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
+| [libcosmic](https://github.com/pop-os/libcosmic/)              | Most of the components | ✅                      | -                    |
+| [pop-appstream-data](https://github.com/pop-os/appstream-data) | cosmic-initial-setup   | -                       | -                    |
+| [pop-fonts](https://github.com/pop-os/fonts)                   | ?                      | ✅                      | -                    |
+| [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           | ✅                      | -                    |
 
 ---
 
