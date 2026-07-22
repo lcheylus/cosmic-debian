@@ -61,7 +61,7 @@ List of additional packages (Depends from COSMIC components)
 
 | Package                                                        | Needed by              | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
-| [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup   | -                       | -                    |
+| [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup   | ✅                      | -                    |
 | [libcosmic](https://github.com/pop-os/libcosmic/)              | Most of the components | ✅                      | -                    |
 | [pop-fonts](https://github.com/pop-os/fonts)                   | ?                      | ✅                      | -                    |
 | [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           | ✅                      | -                    |
