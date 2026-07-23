@@ -29,7 +29,7 @@ List of COSMIC components with status:
 | [cosmic-icons](https://github.com/pop-os/cosmic-icons)                           | ✅                      | -                    |
 | [cosmic-idle](https://github.com/pop-os/cosmic-idle)                             | ✅                      | -                    |
 | [cosmic-initial-setup](https://github.com/pop-os/cosmic-initial-setup)           | -                       | -                    |
-| [cosmic-launcher](https://github.com/pop-os/cosmic-launcher)                     | -                       | -                    |
+| [cosmic-launcher](https://github.com/pop-os/cosmic-launcher)                     | ✅                      | -                    |
 | [cosmic-monitor](https://github.com/pop-os/cosmic-monitor)                       | -                       | -                    |
 | [cosmic-notifications](https://github.com/pop-os/cosmic-notifications)           | ✅                      | -                    |
 | [cosmic-osd](https://github.com/pop-os/cosmic-osd)                               | -                       | -                    |
@@ -42,7 +42,7 @@ List of COSMIC components with status:
 | [cosmic-sound-theme](https://github.com/pop-os/cosmic-sound-theme/)              | -                       | -                    |
 | [cosmic-wallpapers](https://github.com/pop-os/cosmic-wallpapers)                 | ✅                      | -                    |
 | [cosmic-workspaces](https://github.com/pop-os/cosmic-workspaces-epoch)           | -                       | -                    |
-| [pop-launcher](https://github.com/pop-os/launcher)                               | -                       | -                    |
+| [pop-launcher](https://github.com/pop-os/launcher)                               | ✅                      | -                    |
 | [xdg-desktop-portal-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic) | -                       | -                    |
 
 List of [COSMIC Apps](https://system76.com/cosmic/apps)
