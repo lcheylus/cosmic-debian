@@ -39,6 +39,7 @@ List of COSMIC components with status:
 | [cosmic-session](https://github.com/pop-os/cosmic-session)                       | -                       | -                    |
 | [cosmic-settings](https://github.com/pop-os/cosmic-settings)                     | -                       | -                    |
 | [cosmic-settings-daemon](https://github.com/pop-os/cosmic-settings-daemon)       | -                       | -                    |
+| [cosmic-sound-theme](https://github.com/pop-os/cosmic-sound-theme/)              | -                       | -                    |
 | [cosmic-wallpapers](https://github.com/pop-os/cosmic-wallpapers)                 | ✅                      | -                    |
 | [cosmic-workspaces](https://github.com/pop-os/cosmic-workspaces-epoch)           | -                       | -                    |
 | [pop-launcher](https://github.com/pop-os/pop-launcher)                           | -                       | -                    |
