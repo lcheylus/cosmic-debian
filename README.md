@@ -4,7 +4,7 @@
 
 This repository contains utils and workflows to build
 [COSMIC](https://system76.com/cosmic) desktop environment and Wayland compositor
-packages for Debian Linux distribution.
+packages for Debian Linux distribution (current `testing` version `forky/sid`).
 
 - Main GitHub repository of COSMIC DE => https://github.com/pop-os/cosmic-epoch/
 
