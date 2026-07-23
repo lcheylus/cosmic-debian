@@ -19,7 +19,7 @@ RESET = "\033[0m"
 
 # COSMIC version
 # VERSION='master'  # Branch = master
-VERSION = 'epoch-1.3.0'  # Tag = epoch-1.3.0
+VERSION = 'epoch-1.4.0'  # Tag = epoch-1.4.0
 
 COSMIC_COMPONENTS = [
     "cosmic-applets",
