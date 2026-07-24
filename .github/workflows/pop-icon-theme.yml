@@ -11,12 +11,11 @@ jobs:
           repository: 'pop-os/icon-theme'
           ref: 'v3.5.1'
 
-
       - uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          docker-image: sid-slim
+          docker-image: testing
           before-build-hook: |
             hostname -A
             lsb_release -a
