@@ -24,7 +24,7 @@ jobs:
             uname -a
           buildpackage-opts: --build=binary --no-sign
 
-      # Get infos for built Debian package
-      - run: |
+      - name: Get infos for Debian package
+        run: |
           dpkg --info debian/artifacts/pop-icon-theme_3.5.1_all.deb
           dpkg --contents debian/artifacts/pop-icon-theme_3.5.1_all.deb
