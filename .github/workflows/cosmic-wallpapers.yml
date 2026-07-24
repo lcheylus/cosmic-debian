@@ -14,6 +14,7 @@ jobs:
         with:
           repository: 'pop-os/cosmic-wallpapers'
           ref: 'epoch-${{ env.VERSION }}'
+          lfs: true  # Background images saved with Git LFS
 
       - name: Build package
         uses: jtdor/build-deb-action@v1
