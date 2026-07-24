@@ -7,6 +7,7 @@ jobs:
     env:
       NAME: cosmic-randr
       VERSION: 1.4.0
+      ARCH: amd64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -22,7 +23,9 @@ jobs:
         with:
           docker-image: debian:testing
           extra-build-deps: devscripts
-          # TODO Copy debian/changelog from repository (commit after local modifications with dch)
+          # TODO
+          # - Copy debian/changelog from repository
+          # - Commit debian/changelog after release to keep changes
           before-build-hook: |
             DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
           buildpackage-opts: --build=binary --no-sign
@@ -30,16 +33,16 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos"
-          dpkg --info debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_amd64.deb
+          dpkg --info debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          dpkg --contents debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_amd64.deb
+          dpkg --contents debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
 
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_amd64.deb
+          path: debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           if-no-files-found: error
           retention-days: 1
           archive: false

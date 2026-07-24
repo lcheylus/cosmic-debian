@@ -1,4 +1,3 @@
-# Workflow to build Debian package pop-icon-theme
 name: Build package pop-icon-theme
 on: workflow_dispatch
 
@@ -7,6 +6,7 @@ jobs:
     env:
       NAME: pop-icon-theme
       VERSION: 3.5.1
+      ARCH: all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -17,8 +17,6 @@ jobs:
 
       - name: Build package
         uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
@@ -26,16 +24,16 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos"
-          dpkg --info debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
+          dpkg --info debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          dpkg --contents debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
+          dpkg --contents debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
 
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
+          path: debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
