@@ -1,0 +1,24 @@
+# Workflow to build Debian package pop-icon-theme
+name: Build package pop-icon-theme
+on: workflow_dispatch
+
+jobs:
+  pop-icon-them:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/icon-theme'
+          ref: 'v3.5.1'
+
+
+      - uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          docker-image: sid-slim
+          before-build-hook: |
+            hostname -A
+            lsb_release -a
+            uname -a
+          buildpackage-opts: --build=binary --no-sign
