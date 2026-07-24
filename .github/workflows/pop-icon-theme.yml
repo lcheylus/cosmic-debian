@@ -5,11 +5,14 @@ on: workflow_dispatch
 jobs:
   pop-icon-them:
     runs-on: ubuntu-latest
+    env:
+      VERSION: 3.5.1
     steps:
       - uses: actions/checkout@v7
         with:
           repository: 'pop-os/icon-theme'
-          ref: 'v3.5.1'
+          # ref: 'v3.5.1'
+          ref: 'v${{ env.VERSION }}'
 
       - uses: jtdor/build-deb-action@v1
         env:
@@ -29,8 +32,10 @@ jobs:
       - name: Get infos/contents for Debian package
         run: |
           echo "::group::Get infos"
-          dpkg --info debian/artifacts/pop-icon-theme_3.5.1_all.deb
+          # dpkg --info debian/artifacts/pop-icon-theme_3.5.1_all.deb
+          dpkg --info debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          dpkg --contents debian/artifacts/pop-icon-theme_3.5.1_all.deb
+          # dpkg --contents debian/artifacts/pop-icon-theme_3.5.1_all.deb
+          dpkg --contents debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
