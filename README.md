@@ -22,7 +22,7 @@ List of COSMIC components with status:
 | COSMIC component                                                                 | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------------------------|:-----------------------:|:--------------------:|
 | [cosmic-applets](https://github.com/pop-os/cosmic-applets)                       | -                       | -                    |
-| [cosmic-applibrary](https://github.com/pop-os/cosmic-applibrary)                 | -                       | -                    |
+| [cosmic-applibrary](https://github.com/pop-os/cosmic-applibrary)                 | ✅                      | -                    |
 | [cosmic-bg](https://github.com/pop-os/cosmic-bg)                                 | ✅                      | -                    |
 | [cosmic-comp](https://github.com/pop-os/cosmic-comp)                             | -                       | -                    |
 | [cosmic-greeter](https://github.com/pop-os/cosmic-greeter)                       | -                       | -                    |
