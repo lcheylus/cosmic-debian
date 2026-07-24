@@ -4,8 +4,8 @@ on: workflow_dispatch
 jobs:
   cosmic-wallpapers:
     env:
-      NAME: pop-icon-theme
-      VERSION: 3.5.1
+      NAME: cosmic-wallpapers
+      VERSION: 1.4.0
       ARCH: all
     runs-on: ubuntu-latest
     steps:
