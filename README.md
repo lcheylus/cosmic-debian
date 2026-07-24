@@ -52,7 +52,7 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 | [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | -                       | -                    |
 | [cosmic-files](https://github.com/pop-os/cosmic-files)    | Files Manager     | ✅                      | -                    |
 | [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | -                       | -                    |
-| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | -                       | -                    |
+| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | ✅                      | -                    |
 | [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | ✅                      | -                    |
 
 Some components require additional dependencies. For exemple, `cosmic-icons`
