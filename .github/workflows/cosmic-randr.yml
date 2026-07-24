@@ -37,16 +37,16 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos"
-          dpkg --info debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          dpkg --info debian/artifacts/cosmic-randr_${{ env.VERSION }}_amd64.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          dpkg --contents debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          dpkg --contents debian/artifacts/cosmic-randr_${{ env.VERSION }}_amd64.deb
           echo "::endgroup::"
 
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          path: debian/artifacts/cosmic-randr_${{ env.VERSION }}_amd64.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
