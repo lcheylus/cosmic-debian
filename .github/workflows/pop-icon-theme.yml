@@ -18,10 +18,13 @@ jobs:
           # docker-image: testing
           extra-build-deps: lsb-release
           before-build-hook: |
-            echo "### hostname"
-            hostname -A
             echo "### lsb_release -a"
             lsb_release -a
             echo "### uname -a"
             uname -a
           buildpackage-opts: --build=binary --no-sign
+
+      # Get infos for built Debian package
+      - run: |
+          dpkg --info debian/artifacts/pop-icon-theme_3.5.1_all.deb
+          dpkg --contents debian/artifacts/pop-icon-theme_3.5.1_all.deb
