@@ -40,5 +40,7 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          name: pop-icon-theme
           path: debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
+          if-no-files-found: error
+          retention-days: 1
+          archive: false
