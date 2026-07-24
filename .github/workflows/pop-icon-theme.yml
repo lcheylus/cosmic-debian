@@ -3,15 +3,14 @@ name: Build package pop-icon-theme
 on: workflow_dispatch
 
 jobs:
-  pop-icon-them:
-    runs-on: ubuntu-latest
+  pop-icon-theme:
     env:
       VERSION: 3.5.1
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
           repository: 'pop-os/icon-theme'
-          # ref: 'v3.5.1'
           ref: 'v${{ env.VERSION }}'
 
       - uses: jtdor/build-deb-action@v1
@@ -29,13 +28,17 @@ jobs:
             echo "::endgroup::"
           buildpackage-opts: --build=binary --no-sign
 
-      - name: Get infos/contents for Debian package
+      - name: Get infos/contents for package
         run: |
           echo "::group::Get infos"
-          # dpkg --info debian/artifacts/pop-icon-theme_3.5.1_all.deb
           dpkg --info debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          # dpkg --contents debian/artifacts/pop-icon-theme_3.5.1_all.deb
           dpkg --contents debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          name: pop-icon-theme
+          path: debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
