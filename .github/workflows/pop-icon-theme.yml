@@ -15,7 +15,7 @@ jobs:
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          docker-image: testing
+          # docker-image: testing
           before-build-hook: |
             hostname -A
             lsb_release -a
