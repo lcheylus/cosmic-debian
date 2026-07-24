@@ -21,16 +21,10 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: lsb-release devscripts
+          extra-build-deps: devscripts
           # TODO Copy debian/changelog from repository (commit after local modifications with dch)
           before-build-hook: |
             DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
-            echo "::group::lsb_release -a"
-            lsb_release -a
-            echo "::endgroup::"
-            echo "::group::uname -a"
-            uname -a
-            echo "::endgroup::"
           buildpackage-opts: --build=binary --no-sign
 
       - name: Get infos/contents for package
