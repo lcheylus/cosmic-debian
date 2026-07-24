@@ -1,0 +1,52 @@
+# Workflow to build Debian package cosmic-randr
+name: Build package cosmic-randr
+on: workflow_dispatch
+
+jobs:
+  cosmic-randr:
+    env:
+      VERSION: 1.4.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/cosmic-randr'
+          ref: 'epoch-${{ env.VERSION }}'
+
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          docker-image: debian:testing
+          extra-build-deps: lsb-release devscripts
+          # TODO Copy debian/changelog from repository (commit after local modifications with dch)
+          before-build-hook: |
+            echo "::group::lsb_release -a"
+            lsb_release -a
+            echo "::endgroup::"
+            echo "::group::uname -a"
+            uname -a
+            echo "::endgroup::"
+            echo "::group::Update debian/changelog"
+            DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
+            echo "::endgroup::"
+          buildpackage-opts: --build=binary --no-sign
+
+      - name: Get infos/contents for package
+        run: |
+          echo "::group::Get infos"
+          dpkg --info debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          echo "::endgroup::"
+          echo "::group::Get contents"
+          dpkg --contents debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          echo "::endgroup::"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/cosmic-randr_${{ env.VERSION }}_all.deb
+          if-no-files-found: error
+          retention-days: 1
+          archive: false
