@@ -8,16 +8,18 @@ jobs:
       VERSION: 3.5.1
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout sources
+        uses: actions/checkout@v7
         with:
           repository: 'pop-os/icon-theme'
           ref: 'v${{ env.VERSION }}'
 
-      - uses: jtdor/build-deb-action@v1
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          # docker-image: testing
+          docker-image: debian:testing
           extra-build-deps: lsb-release
           before-build-hook: |
             echo "::group::lsb_release -a"
