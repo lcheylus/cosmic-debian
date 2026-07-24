@@ -16,8 +16,12 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           # docker-image: testing
+          extra-build-deps: lsb-release
           before-build-hook: |
+            echo "### hostname"
             hostname -A
+            echo "### lsb_release -a"
             lsb_release -a
+            echo "### uname -a"
             uname -a
           buildpackage-opts: --build=binary --no-sign
