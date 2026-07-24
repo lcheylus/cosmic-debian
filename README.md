@@ -62,7 +62,7 @@ List of additional packages (Depends from COSMIC components)
 
 | Package                                                        | Needed by              | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
-| [adw-gtk3](https://github.com/pop-os/adw-gtk3)                 | ?                      | -                       | -                    |
+| [adw-gtk3](https://github.com/pop-os/adw-gtk3)                 | ?                      | ✅                      | -                    |
 | [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup   | ✅                      | -                    |
 | [libcosmic](https://github.com/pop-os/libcosmic/)              | Most of the components | ✅                      | -                    |
 | [pop-fonts](https://github.com/pop-os/fonts)                   | ?                      | ✅                      | -                    |
