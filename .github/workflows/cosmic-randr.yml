@@ -1,4 +1,3 @@
-# Workflow to build Debian package cosmic-randr
 name: Build package cosmic-randr
 on: workflow_dispatch
 
