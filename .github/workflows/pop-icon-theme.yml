@@ -5,6 +5,7 @@ on: workflow_dispatch
 jobs:
   pop-icon-theme:
     env:
+      NAME: pop-icon-theme
       VERSION: 3.5.1
     runs-on: ubuntu-latest
     steps:
@@ -33,16 +34,16 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos"
-          dpkg --info debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
+          dpkg --info debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
           echo "::group::Get contents"
-          dpkg --contents debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
+          dpkg --contents debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
           echo "::endgroup::"
 
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/pop-icon-theme_${{ env.VERSION }}_all.deb
+          path: debian/artifacts/${{ env.NAME }}_${{ env.VERSION }}_all.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
