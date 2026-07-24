@@ -67,7 +67,7 @@ List of additional packages (Depends from COSMIC components)
 | [libcosmic](https://github.com/pop-os/libcosmic/)              | Most of the components | ✅                      | -                    |
 | [pop-fonts](https://github.com/pop-os/fonts)                   | ?                      | ✅                      | -                    |
 | [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           | ✅                      | -                    |
-| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon | -                       | -                    |
+| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon | ✅                      | -                    |
 
 ---
 
