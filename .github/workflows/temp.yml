@@ -19,20 +19,26 @@ jobs:
           sparse-checkout-cone-mode: false
           path: tools
 
+      - name: Setup sccache
+        id: sccache-setup
+        uses: mozilla-actions/sccache-action@v0.0.10
+        continue-on-error: true
+      - name: Export sccache
+        if: steps.sccache-setup.outcome == 'success'
+        run: |
+          echo "RUSTC_WRAPPER=/github/workspace/tools/utils/sccache" >> $GITHUB_ENV
+          echo "SCCACHE_GHA_ENABLED=true" >> $GITHUB_ENV
+
       - name: Build package
         uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: devscripts
-          # TODO
-          # - Copy debian/changelog from repository
-          # - Commit debian/changelog after release to keep changes
           before-build-hook: |
             echo "## pwd"
             pwd
-            echo "## ls utils/"
+            echo "## sccache infos"
             ls -l
             ls -l tools/utils
             tools/utils/sccache -h
