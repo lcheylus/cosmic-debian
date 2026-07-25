@@ -6,17 +6,18 @@ jobs:
   test-sccache:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sccache from local repository
-        uses: actions/checkout@v7
-        with:
-          sparse-checkout: utils/sccache
-          sparse-checkout-cone-mode: false
-
       - name: Checkout sources for cosmic-randr
         uses: actions/checkout@v7
         with:
           repository: 'pop-os/cosmic-randr'
           ref: 'epoch-1.4.0'
+
+      - name: Checkout sccache from local repository
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: utils/sccache
+          sparse-checkout-cone-mode: false
+          path: tools
 
       - name: Build package
         uses: jtdor/build-deb-action@v1
@@ -33,5 +34,4 @@ jobs:
             pwd
             echo "## ls utils/"
             ls -l
-            ls -l utils
           buildpackage-opts: --build=binary --no-sign
