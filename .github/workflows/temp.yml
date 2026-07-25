@@ -34,4 +34,6 @@ jobs:
             pwd
             echo "## ls utils/"
             ls -l
+            ls -l tools/utils
+            tools/utils/sccache -h
           buildpackage-opts: --build=binary --no-sign
