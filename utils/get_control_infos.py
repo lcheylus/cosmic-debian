@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Tool to get debian/control file for every COSMIC component
 # and get infos (name, description, depends...) for build/installation
@@ -6,9 +5,9 @@
 
 import os
 import re
-import requests
 import sys
 
+import requests
 from deb_parser import Parser
 
 # Codes for colors in terminal
@@ -85,7 +84,7 @@ def parse_depends(depends: str) -> list:
     # Multilines 'Build-Depends/Depends' field
     if '\n' in depends:
         tmp_depends = depends.splitlines()
-        ret = list()
+        ret = []
         for dep in tmp_depends:
             ret.append(dep.strip(' ,'))
 
@@ -100,9 +99,9 @@ class Component:
     def __init__(self):
         self.name = ''
         self.source_name = ''
-        self.build_depends = list()
-        self.packages = list()
-        self.depends = list()
+        self.build_depends = []
+        self.packages = []
+        self.depends = []
 
     def parse_control(self, content: str):
         """
@@ -133,7 +132,7 @@ class Component:
                 continue
 
             # Package entry = { name, description }
-            pkg = dict()
+            pkg = {}
             pkg['name'] = entry['name']
 
             # Handle case for multi-lines description
@@ -180,9 +179,9 @@ if __name__ == "__main__":
         GH_HEADERS.update({'Authorization': 'Bearer ' + token})
 
     # Global list for packages, build-depends and depends
-    packages = list()
-    build_depends = list()
-    depends = list()
+    packages = []
+    build_depends = []
+    depends = []
 
     for comp in COSMIC_COMPONENTS:
         print(f"[*] Get debian/control file for '{comp}'")
