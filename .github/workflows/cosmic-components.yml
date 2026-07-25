@@ -3,6 +3,7 @@ on: workflow_dispatch
 
 jobs:
   cosmic-build:
+    name: Build ${{ matrix.component }}
     env:
       VERSION: 1.4.0
       ARCH: amd64
