@@ -3,12 +3,12 @@
 set -eu
 
 if ! command -v curl >/dev/null 2>&1; then
-	"ERROR: required command 'curl' is not installed or not in PATH."
+	echo "ERROR: required command 'curl' is not installed or not in PATH."
 	exit 1
 fi
 
 if ! command -v jq >/dev/null 2>&1; then
-	"ERROR: required command 'jq' is not installed or not in PATH."
+	echo "ERROR: required command 'jq' is not installed or not in PATH."
 	exit 1
 fi
 
