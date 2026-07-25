@@ -1,4 +1,4 @@
-name: Build package cosmic-wallpapers
+name: Build package for cosmic-wallpapers
 on: workflow_dispatch
 
 jobs:

@@ -1,4 +1,4 @@
-name: Build package cosmic-randr
+name: Build package for cosmic-randr
 on: workflow_dispatch
 
 jobs:

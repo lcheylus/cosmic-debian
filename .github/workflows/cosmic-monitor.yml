@@ -1,4 +1,4 @@
-name: Build app cosmic-monitor
+name: Build package for cosmic-monitor
 on: workflow_dispatch
 
 jobs:
