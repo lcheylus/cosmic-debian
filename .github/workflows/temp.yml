@@ -1,0 +1,37 @@
+# Temp job to install/test sccache in container
+name: Test sccache
+on: workflow_dispatch
+
+jobs:
+  test-sccache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sccache from local repository
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: utils/sccache
+          sparse-checkout-cone-mode: false
+
+      - name: Checkout sources for cosmic-randr
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/cosmic-randr'
+          ref: 'epoch-1.4.0'
+
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          docker-image: debian:testing
+          extra-build-deps: devscripts
+          # TODO
+          # - Copy debian/changelog from repository
+          # - Commit debian/changelog after release to keep changes
+          before-build-hook: |
+            echo "## pwd"
+            pwd
+            echo "## ls utils/"
+            ls -l
+            ls -l utils
+          buildpackage-opts: --build=binary --no-sign
