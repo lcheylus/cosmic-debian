@@ -64,14 +64,14 @@ def load_gh_token() -> str:
         file = open(dirname + '/secrets.txt', 'r')
     except FileNotFoundError:
         print(f"{RED}[ERROR]{RESET} unable to read {dirname}/secrets.txt file")
-        return None
+        return ''
 
     for line in file:
         if line.startswith('#'):
             continue
         if not line.startswith('github_pat_'):
             print(f"{RED}[ERROR]{RESET} unable to find GitHub token in {dirname}/secrets.txt file")
-            return None
+            return ''
         else:
             return line.strip()
 
@@ -172,7 +172,7 @@ class Component:
 
 if __name__ == "__main__":
     token = load_gh_token()
-    if token is None:
+    if token == '':
         print(f"{RED}ERROR{RESET} unable to load GitHub personal access token")
         sys.exit(1)
     else:
