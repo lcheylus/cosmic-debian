@@ -90,6 +90,6 @@ if [ "${status}" = "completed" ]; then
 		https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/${job_id}/artifacts |
 		jq -r '.artifacts[] | ({name, url, id, expired} | to_entries | map("\(.key): \(.value)"))'
 else
-	echo "ERROR: job ID ${job_id} does not exist (Status: ${status})"
+	echo "ERROR: unable to get artifacts for job ID ${job_id} (Status: ${status})"
 	exit 1
 fi
