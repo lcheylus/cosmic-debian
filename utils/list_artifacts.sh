@@ -88,7 +88,7 @@ if [ "${status}" = "completed" ]; then
 		-H "Authorization: Bearer ${GH_TOKEN}" \
 		-H "X-GitHub-Api-Version: 2026-03-10" \
 		https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/${job_id}/artifacts |
-		jq -r '.artifacts[] | ({name, url, expired} | to_entries | map("\(.key): \(.value)"))'
+		jq -r '.artifacts[] | ({name, url, id, expired} | to_entries | map("\(.key): \(.value)"))'
 else
 	echo "ERROR: job ID ${job_id} does not exist (Status: ${status})"
 	exit 1
