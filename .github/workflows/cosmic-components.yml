@@ -10,12 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        component: [cosmic-randr, cosmic-monitor]
+        component: [cosmic-randr, cosmic-monitor, cosmic-screenshot]
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v7
         with:
+          # TODO add exception for cosmic-workspaces (repo = pop-os/cosmic-workspaces-epoch)
           repository: 'pop-os/${{ matrix.component }}'
           ref: 'epoch-${{ env.VERSION }}'
 
@@ -29,6 +30,7 @@ jobs:
           # TODO
           # - Copy debian/changelog from repository
           # - Commit debian/changelog after release to keep changes
+          # - Do not update changelog if not needed
           before-build-hook: |
             DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
           buildpackage-opts: --build=binary --no-sign
