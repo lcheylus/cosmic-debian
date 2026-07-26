@@ -14,6 +14,5 @@ fi
 
 curl -sL -H "Accept: application/vnd.github+json" \
 	-H "X-GitHub-Api-Version: 2026-03-10" \
-	https://api.github.com/repos/pop-os/cosmic-epoch/tags \
-	| jq -r .[].name
-
+	https://api.github.com/repos/pop-os/cosmic-epoch/tags |
+	jq -r .[].name
