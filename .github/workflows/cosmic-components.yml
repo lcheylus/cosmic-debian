@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        component: [cosmic-randr, cosmic-monitor, cosmic-screenshot]
+        component: [cosmic-randr, cosmic-screenshot, cosmic-files, cosmic-monitor, cosmic-term]
 
     steps:
       - name: Checkout sources
