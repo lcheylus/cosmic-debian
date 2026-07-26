@@ -8,13 +8,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - {name: adw-gtk3, version: 5.3.0-0pop1, arch: all }
+          - {name: adw-gtk3, repo: adw-gtk3, version: 5.3.0-0pop1, arch: all }
+          - {name: pop-fonts, repo: fonts, version: 1.0.3, arch: all }
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v7
         with:
-          repository: 'pop-os/${{ matrix.name }}'
+          repository: 'pop-os/${{ matrix.repo }}'
 
       - name: Build package
         uses: jtdor/build-deb-action@v1
@@ -36,6 +37,7 @@ jobs:
           dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
           echo "::endgroup::"
 
+      # TODO Handle case for component with multi packages (appstream-data)
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
