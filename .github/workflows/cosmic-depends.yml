@@ -1,0 +1,45 @@
+name: Build package for COSMIC depends
+on: workflow_dispatch
+
+jobs:
+  cosmic-build:
+    name: Build ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+      include:
+        - {name: adw-gtk3, version: 5.3.0, arch: all }
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/${{ matrix.name }}'
+
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          docker-image: debian:testing
+          extra-build-deps: devscripts
+          # before-build-hook: |
+          #   DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
+          buildpackage-opts: --build=binary --no-sign
+
+      - name: Get infos/contents for package
+        run: |
+          echo "::group::Get infos"
+          dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+          echo "::endgroup::"
+          echo "::group::Get contents"
+          dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+          echo "::endgroup::"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+          if-no-files-found: error
+          retention-days: 1
+          archive: false
