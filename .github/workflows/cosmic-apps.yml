@@ -1,0 +1,45 @@
+name: Build packages for COSMIC apps
+on: workflow_dispatch
+
+jobs:
+  cosmic-build:
+    name: Build ${{ matrix.app }}
+    env:
+      VERSION: 1.4.0
+      ARCH: amd64
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [cosmic-files, cosmic-store, cosmic-term]
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/${{ matrix.app }}'
+          ref: 'epoch-${{ env.VERSION }}'
+
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          docker-image: debian:testing
+          buildpackage-opts: --build=binary --no-sign
+
+      - name: Get infos/contents for package
+        run: |
+          echo "::group::Get infos for ${{ matrix.app }} package"
+          dpkg --info debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+          echo "::endgroup::"
+          echo "::group::Get contents for ${{ matrix.app }} package"
+          dpkg --contents debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+          echo "::endgroup::"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+          if-no-files-found: error
+          retention-days: 1
+          archive: false
