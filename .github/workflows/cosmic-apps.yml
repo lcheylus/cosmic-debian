@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [cosmic-files, cosmic-store, cosmic-term]
+        app: [cosmic-files, cosmic-store]
 
     steps:
       - name: Checkout sources
@@ -25,7 +25,6 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: sed
           buildpackage-opts: --build=binary --no-sign
           # Replace build target in debian/rules files + no vendoring
           setup-hook: sed -i 's/export VENDOR ?= 1/export VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
