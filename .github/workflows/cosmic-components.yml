@@ -37,10 +37,10 @@ jobs:
 
       - name: Get infos/contents for package
         run: |
-          echo "::group::Get infos"
+          echo "::group::Get infos for ${{ matrix.component }} package"
           dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
-          echo "::group::Get contents"
+          echo "::group::Get contents for ${{ matrix.component }} package"
           dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
           echo "::endgroup::"
 
