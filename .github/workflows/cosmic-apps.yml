@@ -27,8 +27,8 @@ jobs:
           docker-image: debian:testing
           extra-build-deps: sed
           buildpackage-opts: --build=binary --no-sign
-          # Replace build target in debian/rules files
-          setup-hook: sed -i 's/build-vendored/build-release/' debian/rules
+          # Replace build target in debian/rules files + no vendoring
+          setup-hook: sed -i 's/export VENDOR ?= 1/export VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
 
       - name: Get infos/contents for package
         run: |
