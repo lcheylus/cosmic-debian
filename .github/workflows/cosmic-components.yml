@@ -1,4 +1,4 @@
-name: Build package for COSMIC components
+name: Build packages for COSMIC components
 on: workflow_dispatch
 
 jobs:

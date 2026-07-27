@@ -1,4 +1,4 @@
-name: Build package for COSMIC depends
+name: Build packages for COSMIC depends
 on: workflow_dispatch
 
 jobs:
