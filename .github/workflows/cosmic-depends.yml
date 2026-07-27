@@ -32,29 +32,29 @@ jobs:
       - name: Get infos/contents for packages
         run: |
           if [ "${{ matrix.name }}" == "appstream-data-pop" ]; then
-            echo "::group::Get infos"
+            echo "::group::Get infos for ${{ matrix.name }} package"
             dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get contents"
+            echo "::group::Get contents for ${{ matrix.name }} package"
             dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get infos"
+            echo "::group::Get infos for ${{ matrix.name }}-icons package"
             dpkg --info debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get contents"
+            echo "::group::Get contents for ${{ matrix.name }}-icons package"
             dpkg --contents debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get infos"
+            echo "::group::Get infos for ${{ matrix.name }}-icons-hidpi package"
             dpkg --info debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get contents"
+            echo "::group::Get contents for ${{ matrix.name }}-icons-hidpi package"
             dpkg --contents debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           else
-            echo "::group::Get infos"
+            echo "::group::Get infos for ${{ matrix.name }} package"
             dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
-            echo "::group::Get contents"
+            echo "::group::Get contents for ${{ matrix.name }} package"
             dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           fi
