@@ -9,8 +9,9 @@ jobs:
       matrix:
         include:
           - {name: adw-gtk3, repo: adw-gtk3, version: 5.3.0-0pop1, arch: all }
-          - {name: pop-fonts, repo: fonts, version: 1.0.3, arch: all }
           - {name: appstream-data-pop, repo: appstream-data, version: 0.0.3, arch: all }
+          - {name: pop-icon-theme, repo: icon-theme, version: 3.5.1, arch: all }
+          - {name: pop-fonts, repo: fonts, version: 1.0.3, arch: all }
 
     steps:
       - name: Checkout sources
