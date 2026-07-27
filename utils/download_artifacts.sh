@@ -3,20 +3,12 @@
 # https://github.com/lcheylus/cosmic-debian/ repository
 set -eu
 
-if ! command -v curl > /dev/null 2>&1; then
-	echo "ERROR: required command 'curl' is not installed or not in PATH."
-	exit 1
-fi
-
-if ! command -v jq > /dev/null 2>&1; then
-	echo "ERROR: required command 'jq' is not installed or not in PATH."
-	exit 1
-fi
-
-if ! command -v awk > /dev/null 2>&1; then
-	echo "ERROR: required command 'awk' is not installed or not in PATH."
-	exit 1
-fi
+for cmd in curl jq awk; do
+	if ! command -v "${cmd}" > /dev/null 2>&1; then
+		echo "ERROR: required command '${cmd}' is not installed or not in PATH."
+		exit 1
+	fi
+done
 
 # No download by default
 download=0
