@@ -28,6 +28,8 @@ jobs:
         with:
           docker-image: debian:testing
           extra-build-deps: devscripts
+          # Replace build target in debian/rules files + no vendoring
+          setup-hook: sed -i 's/export VENDOR ?= 1/export VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
           # TODO
           # - Copy debian/changelog from repository
           # - Commit debian/changelog after release to keep changes
