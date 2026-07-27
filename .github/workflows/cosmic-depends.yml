@@ -29,14 +29,35 @@ jobs:
           #   DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
           buildpackage-opts: --build=binary --no-sign
 
-      - name: Get infos/contents for package
+      - name: Get infos/contents for packages
         run: |
-          echo "::group::Get infos"
-          dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
-          echo "::endgroup::"
-          echo "::group::Get contents"
-          dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
-          echo "::endgroup::"
+          if [ "${{ matrix.name }}" == "appstream-data-pop" ]; then
+            echo "::group::Get infos"
+            dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get contents"
+            dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get infos"
+            dpkg --info debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get contents"
+            dpkg --contents debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get infos"
+            dpkg --info debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get contents"
+            dpkg --contents debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+          else
+            echo "::group::Get infos"
+            dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+            echo "::group::Get contents"
+            dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_${{ matrix.arch }}.deb
+            echo "::endgroup::"
+          fi
 
       - name: Upload package
         uses: actions/upload-artifact@v7
@@ -51,7 +72,7 @@ jobs:
         if: ${{ matrix.name == 'appstream-data-pop' }}
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/{{ matrix.name }}-icons_{{ matrix.version }}_all.deb
+          path: debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_all.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
@@ -59,7 +80,7 @@ jobs:
         if: ${{ matrix.name == 'appstream-data-pop' }}
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/{{ matrix.name }}-icons-hidpi_{{ matrix.version }}_all.deb
+          path: debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_all.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
