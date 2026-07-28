@@ -145,7 +145,7 @@ class Component:
             self.packages.append(pkg)
 
             if entry['details'].get('depends') is not None:
-                self.depends = parse_depends(entry['details'].get('depends'))
+                self.depends.extend(parse_depends(entry['details'].get('depends')))
 
             if self.source_name == '':
                 print(f"{RED}[ERROR]{RESET} source package not defined for '{self.name}'")
