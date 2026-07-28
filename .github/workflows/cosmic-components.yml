@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         # component: [cosmic-randr, cosmic-screenshot, cosmic-files, cosmic-monitor, cosmic-term]
-        component: [cosmic-randr, cosmic-screenshot, cosmic-monitor]
+        component: [cosmic-randr, cosmic-screenshot, cosmic-monitor, xdg-desktop-portal-cosmic]
 
     steps:
       - name: Checkout sources
@@ -29,7 +29,7 @@ jobs:
           docker-image: debian:testing
           extra-build-deps: devscripts
           # Replace build target in debian/rules files + no vendoring
-          setup-hook: sed -i 's/export VENDOR ?= 1/export VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
+          setup-hook: sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
           # TODO
           # - Copy debian/changelog from repository
           # - Commit debian/changelog after release to keep changes
