@@ -43,7 +43,7 @@ List of COSMIC components with status:
 | [cosmic-wallpapers](https://github.com/pop-os/cosmic-wallpapers)                 | ✅                      | ✅                   |
 | [cosmic-workspaces](https://github.com/pop-os/cosmic-workspaces-epoch)           | ✅                      | -                    |
 | [pop-launcher](https://github.com/pop-os/launcher)                               | ✅                      | -                    |
-| [xdg-desktop-portal-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic) | -                       | -                    |
+| [xdg-desktop-portal-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic) | ✅                      | ✅                   |
 
 List of [COSMIC Apps](https://system76.com/cosmic/apps)
 
