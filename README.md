@@ -66,7 +66,7 @@ List of additional packages (Depends from COSMIC components)
 | [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup<br>cosmic-store   | ✅                      | ✅                   |
 | [pop-fonts](https://github.com/pop-os/fonts)                   | cosmic-session         | ✅                      | ✅                   |
 | [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           | ✅                      | ✅                   |
-| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon | ✅                      | -                    |
+| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon | ✅                      | ✅                   |
 
 ---
 
