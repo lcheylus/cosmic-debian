@@ -12,6 +12,7 @@ jobs:
           - {name: appstream-data-pop, repo: appstream-data, version: 0.0.3, arch: all }
           - {name: pop-icon-theme, repo: icon-theme, version: 3.5.1, arch: all }
           - {name: pop-fonts, repo: fonts, version: 1.0.3, arch: all }
+          - {name: pop-sound-theme, repo: gtk-theme, version: 5.5.1, arch: all }
 
     steps:
       - name: Checkout sources
