@@ -58,7 +58,8 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 Some components require additional dependencies. For exemple, `cosmic-icons`
 component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
 
-List of additional packages (Depends from COSMIC components)
+List of additional packages: "Depends" to install COSMIC components/apps not
+available as official Debian packages
 
 | Package                                                        | Needed by              | Build on Debian testing | GitHub job for build |
 |----------------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
