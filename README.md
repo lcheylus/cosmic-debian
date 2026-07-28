@@ -25,7 +25,7 @@ List of COSMIC components with status:
 | [cosmic-applibrary](https://github.com/pop-os/cosmic-applibrary)                 | ✅                      | -                    |
 | [cosmic-bg](https://github.com/pop-os/cosmic-bg)                                 | ✅                      | -                    |
 | [cosmic-comp](https://github.com/pop-os/cosmic-comp)                             | -                       | -                    |
-| [cosmic-greeter](https://github.com/pop-os/cosmic-greeter)                       | -                       | -                    |
+| [cosmic-greeter](https://github.com/pop-os/cosmic-greeter)                       | ✅                      | -                    |
 | [cosmic-icons](https://github.com/pop-os/cosmic-icons)                           | ✅                      | -                    |
 | [cosmic-idle](https://github.com/pop-os/cosmic-idle)                             | ✅                      | -                    |
 | [cosmic-initial-setup](https://github.com/pop-os/cosmic-initial-setup)           | -                       | -                    |
