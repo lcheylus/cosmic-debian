@@ -32,7 +32,7 @@ List of COSMIC components with status:
 | [cosmic-launcher](https://github.com/pop-os/cosmic-launcher)                     | ✅                      | -                    |
 | [cosmic-monitor](https://github.com/pop-os/cosmic-monitor)                       | ✅                      | ✅                   |
 | [cosmic-notifications](https://github.com/pop-os/cosmic-notifications)           | ✅                      | -                    |
-| [cosmic-osd](https://github.com/pop-os/cosmic-osd)                               | -                       | -                    |
+| [cosmic-osd](https://github.com/pop-os/cosmic-osd)                               | ✅                      | -                    |
 | [cosmic-panel](https://github.com/pop-os/cosmic-panel)                           | ✅                      | -                    |
 | [cosmic-randr](https://github.com/pop-os/cosmic-randr)                           | ✅                      | ✅                   |
 | [cosmic-screenshot](https://github.com/pop-os/cosmic-screenshot)                 | ✅                      | -                    |
