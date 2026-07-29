@@ -21,31 +21,34 @@ RESET = "\033[0m"
 VERSION = 'epoch-1.4.0'  # Tag = epoch-1.4.0
 
 COSMIC_COMPONENTS = [
-    "cosmic-applets",
-    "cosmic-applibrary",
-    "cosmic-bg",
-    "cosmic-comp",
-    "cosmic-greeter",
-    "cosmic-icons",
-    "cosmic-idle",
-    "cosmic-initial-setup",
-    "cosmic-launcher",
-    "cosmic-monitor",
-    "cosmic-notifications",
-    "cosmic-osd",
-    "cosmic-panel",
-    "cosmic-randr",
-    "cosmic-screenshot",
-    "cosmic-session",
-    "cosmic-settings",
-    "cosmic-settings-daemon",
-    "cosmic-wallpapers",
-    "cosmic-workspaces-epoch",
-    "pop-launcher",
-    "xdg-desktop-portal-cosmic",
+    'cosmic-applets',
+    'cosmic-applibrary',
+    'cosmic-bg',
+    'cosmic-comp',
+    'cosmic-greeter',
+    'cosmic-icons',
+    'cosmic-idle',
+    'cosmic-initial-setup',
+    'cosmic-launcher',
+    'cosmic-monitor',
+    'cosmic-notifications',
+    'cosmic-osd',
+    'cosmic-panel',
+    'cosmic-randr',
+    'cosmic-screenshot',
+    'cosmic-session',
+    'cosmic-settings',
+    'cosmic-settings-daemon',
+    'cosmic-wallpapers',
+    'cosmic-workspaces-epoch',
+    'pop-launcher',
+    'xdg-desktop-portal-cosmic',
 ]
 
-COSMIC_APPS = ["cosmic-edit", "cosmic-files", "cosmic-player", "cosmic-store", "cosmic-term"]
+COSMIC_APPS = ['cosmic-edit', 'cosmic-files', 'cosmic-player', 'cosmic-store', 'cosmic-term']
+
+# Addtionnal packages needed to install COSMIC components/apps, not available as official Debian package
+COSMIC_ADDS = ['adw-gtk3', 'appstream-data-pop', 'pop-fonts', 'pop-icon-theme', 'pop-sound-theme']
 
 # Headers for GitHub API request
 # See https://docs.github.com/en/rest/repos/contents?apiVersion=2026-03-10
@@ -218,7 +221,13 @@ if __name__ == "__main__":
                 if dep in COSMIC_APPS:
                     print(f"{BLUE}[INFO]{RESET} {dep} App depends for {component.name} component")
 
-                if not dep.startswith('$') and dep not in depends and dep not in COSMIC_COMPONENTS:
+                # Exception for 'casper' package => needed only for a Debian Live system
+                if (
+                    not dep.startswith('$')
+                    and dep not in depends
+                    and dep not in COSMIC_COMPONENTS
+                    and dep != 'casper'
+                ):
                     depends.append(dep)
 
         else:
@@ -239,4 +248,4 @@ if __name__ == "__main__":
     print(*sorted(build_depends), sep=' ')
 
     print(f"{GREEN}Global list of Depends: {RESET}", end='')
-    print(*(sorted(set(depends) - set(packages))), sep=' ')
+    print(*(sorted(set(depends) - set(packages) - set(COSMIC_APPS) - set(COSMIC_ADDS))), sep=' ')
