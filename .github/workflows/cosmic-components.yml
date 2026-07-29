@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        component: [cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, xdg-desktop-portal-cosmic]
+        # component: [cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, xdg-desktop-portal-cosmic]
+        component: [cosmic-initial-setup]
 
     steps:
       - name: Checkout sources
@@ -33,8 +34,13 @@ jobs:
           # - Copy debian/changelog from repository
           # - Commit debian/changelog after release to keep changes
           # - Do not update changelog if not needed
+          # Special case for cosmic-initial-setup => rewrite debian/rules file to remove vendor
           before-build-hook: |
             DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
+            if grep -q "cosmic-initial-setup" Cargo.toml; then
+              sed -i '/override_dh_auto_clean/,+2d' debian/rules
+            fi
+
           buildpackage-opts: --build=binary --no-sign
 
       - name: Get infos/contents for package
