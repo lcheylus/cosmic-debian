@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # component: [cosmic-randr, cosmic-screenshot, cosmic-files, cosmic-monitor, cosmic-term]
-        component: [cosmic-randr, cosmic-screenshot, cosmic-monitor, xdg-desktop-portal-cosmic]
+        component: [cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, xdg-desktop-portal-cosmic]
 
     steps:
       - name: Checkout sources
