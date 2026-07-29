@@ -10,15 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # component: [cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, xdg-desktop-portal-cosmic]
-        component: [cosmic-initial-setup]
+        component: [cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, cosmic-workspaces, xdg-desktop-portal-cosmic]
 
     steps:
       - name: Checkout sources
+        if: ${{ matrix.component != 'cosmic-workspaces' }}
         uses: actions/checkout@v7
         with:
-          # TODO add exception for cosmic-workspaces (repo = pop-os/cosmic-workspaces-epoch)
           repository: 'pop-os/${{ matrix.component }}'
+          ref: 'epoch-${{ env.VERSION }}'
+
+      # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
+      - name: Checkout sources for cosmic-workspaces
+        if: ${{ matrix.component == 'cosmic-workspaces' }}
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/cosmic-workspaces-epoch'
           ref: 'epoch-${{ env.VERSION }}'
 
       - name: Build package
