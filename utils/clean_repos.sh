@@ -45,7 +45,7 @@ if [ "$dryrun" -eq 1 ]; then
 	echo "[*] dry-run mode"
 fi
 
-for dir in $(fdfind -E "${COSMIC_REPO}" -t d -d 1 cosmic "${COSMIC_HOME}"); do
+for dir in $(fdfind -E "${COSMIC_REPO}" -t d -d 1 'cosmic|pop-launcher|pop-icon-theme' "${COSMIC_HOME}"); do
 	echo "[*] Clean ${dir} directory"
 
 	if [ "$dryrun" -eq 1 ]; then
