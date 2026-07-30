@@ -22,7 +22,7 @@ VERSION = 'epoch-1.4.0'  # Tag = epoch-1.4.0
 
 COSMIC_COMPONENTS = [
     'cosmic-applets',
-    'cosmic-applibrary',
+    'cosmic-app-library',
     'cosmic-bg',
     'cosmic-comp',
     'cosmic-greeter',
@@ -40,7 +40,7 @@ COSMIC_COMPONENTS = [
     'cosmic-settings',
     'cosmic-settings-daemon',
     'cosmic-wallpapers',
-    'cosmic-workspaces-epoch',
+    'cosmic-workspaces',
     'pop-launcher',
     'xdg-desktop-portal-cosmic',
 ]
@@ -188,11 +188,13 @@ if __name__ == "__main__":
 
     for comp in COSMIC_COMPONENTS:
         print(f"[*] Get debian/control file for '{comp}'")
-        # Exception for pop-launcher => repo https://github.com/pop-os/launcher/
-        if comp != "pop-launcher":
-            url = f'https://api.github.com/repos/pop-os/{comp}/contents//debian/control'
+        # Exception for some repositories
+        if comp == "pop-launcher":
+            url = 'https://api.github.com/repos/pop-os/launcher/contents/debian/control'
+        elif comp == "cosmic-workspaces":
+            url = 'https://api.github.com/repos/pop-os/cosmic-workspaces-epoch/contents/debian/control'
         else:
-            url = 'https://api.github.com/repos/pop-os/launcher/contents//debian/control'
+            url = f'https://api.github.com/repos/pop-os/{comp}/contents/debian/control'
 
         resp = requests.get(url, params={'ref': VERSION}, headers=GH_HEADERS, timeout=5)
         if resp.status_code == 200:
