@@ -10,7 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        component: [cosmic-greeter, cosmic-initial-setup, cosmic-monitor, cosmic-randr, cosmic-screenshot, cosmic-workspaces, xdg-desktop-portal-cosmic]
+        component:
+          - cosmic-applets
+          - cosmic-app-library
+          - cosmic-bg
+          - cosmic-comp
+          - cosmic-greeter
+          - cosmic-icons
+          - cosmic-idle
+          - cosmic-initial-setup
+          - cosmic-launcher
+          - cosmic-monitor
+          - cosmic-notifications
+          - cosmic-osd
+          - cosmic-panel
+          - cosmic-randr
+          - cosmic-screenshot
+          - cosmic-session
+          - cosmic-settings
+          - cosmic-settings-daemon
+          - cosmic-wallpapers
+          - cosmic-workspaces
+          - pop-launcher
+          - xdg-desktop-portal-cosmic
 
     steps:
       - name: Checkout sources
