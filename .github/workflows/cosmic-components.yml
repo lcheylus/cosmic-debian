@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout sources
-        if: ${{ matrix.component != 'cosmic-workspaces' }}
+        if: ${{ matrix.component != 'cosmic-workspaces' && matrix.component != 'pop-launcher' }}
         uses: actions/checkout@v7
         with:
           repository: 'pop-os/${{ matrix.component }}'
@@ -50,6 +50,14 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: 'pop-os/cosmic-workspaces-epoch'
+          ref: 'epoch-${{ env.VERSION }}'
+
+      # Special case for pop-launcher repository (repo = pop-os/launcher)
+      - name: Checkout sources for pop-launcher
+        if: ${{ matrix.component == 'pop-launcher' }}
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/launcher'
           ref: 'epoch-${{ env.VERSION }}'
 
       - name: Build package
