@@ -76,9 +76,12 @@ jobs:
               sed -i '/cosmic-randr,/d' debian/control
             fi
           before-build-hook: |
-            # Special case for cosmic-initial-setup a and cosmic-session
+            # Special case for cosmic-initial-setup, cosmic-osd and cosmic-session
             # => rewrite debian/rules file to remove vendor
             if grep -q "cosmic-initial-setup" Cargo.toml; then
+              sed -i '/override_dh_auto_clean/,+2d' debian/rules
+            fi
+            if grep -q "cosmic-osd" Cargo.toml; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
             if grep -q "cosmic-session" Cargo.toml; then
