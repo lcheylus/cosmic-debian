@@ -69,24 +69,28 @@ jobs:
           extra-build-deps: devscripts
           setup-hook: |
             # Replace build target in debian/rules files + no vendoring
-            sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
+            sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
+            sed -i 's/build-vendored/build-release/' debian/rules
+            echo "### debian/rules file"
+            cat debian/rules
+
             # Special case for cosmic-osd => rewrite debian/control file to remove
             # unecessary Build-Depends on cosmic-randr
             if grep -q "cosmic-osd" Cargo.toml; then
               sed -i '/cosmic-randr,/d' debian/control
             fi
           before-build-hook: |
-            # Special case for cosmic-initial-setup, cosmic-osd and cosmic-session
-            # => rewrite debian/rules file to remove vendor
-            if grep -q "cosmic-initial-setup" Cargo.toml; then
+            # Special case for cosmic-initial-setup, cosmic-osd, cosmic-settings
+            # and cosmic-session => rewrite debian/rules file to remove vendor
+            if grep "name" Cargo.toml | grep -q -E "cosmic-initial-setup|cosmic-osd|cosmic-session"; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
-            if grep -q "cosmic-osd" Cargo.toml; then
+            if [ "${{ matrix.component }}" = "cosmic-settings" ]]; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
-            if grep -q "cosmic-session" Cargo.toml; then
-              sed -i '/override_dh_auto_clean/,+2d' debian/rules
-            fi
+            echo "### debian/rules file"
+            cat debian/rules
+
             # TODO
             # - Copy debian/changelog from repository
             # - Commit debian/changelog after release to keep changes
