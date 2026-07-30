@@ -57,18 +57,25 @@ jobs:
         with:
           docker-image: debian:testing
           extra-build-deps: devscripts
-          # Replace build target in debian/rules files + no vendoring
-          setup-hook: sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
-          # TODO
-          # - Copy debian/changelog from repository
-          # - Commit debian/changelog after release to keep changes
-          # - Do not update changelog if not needed
-          # Special case for cosmic-initial-setup => rewrite debian/rules file to remove vendor
+          setup-hook: |
+            # Replace build target in debian/rules files + no vendoring
+            sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules && sed -i 's/build-vendored/build-release/' debian/rules && cat debian/rules
+            # Special case for cosmic-osd => rewrite debian/control file to remove
+            # unecessary Build-Depends on cosmic-randr
+            if grep -q "cosmic-osd" Cargo.toml; then
+              sed -i '/cosmic-randr,/d' debian/control
+            fi
           before-build-hook: |
-            DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
+            # Special case for cosmic-initial-setup => rewrite debian/rules file to remove vendor
             if grep -q "cosmic-initial-setup" Cargo.toml; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
+            # TODO
+            # - Copy debian/changelog from repository
+            # - Commit debian/changelog after release to keep changes
+            # - Do not update changelog if not needed
+            #
+            DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
 
           buildpackage-opts: --build=binary --no-sign
 
