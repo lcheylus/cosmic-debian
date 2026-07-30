@@ -6,7 +6,6 @@ jobs:
     name: Build ${{ matrix.component }}
     env:
       VERSION: 1.4.0
-      ARCH: amd64
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,10 +28,13 @@ jobs:
           - cosmic-session
           - cosmic-settings
           - cosmic-settings-daemon
-          - cosmic-wallpapers
           - cosmic-workspaces
           - pop-launcher
           - xdg-desktop-portal-cosmic
+        arch:
+          - amd64
+        include:
+          - {component: cosmic-wallpapers, arch: all}
 
     steps:
       - name: Checkout sources
@@ -83,30 +85,30 @@ jobs:
         run: |
           if [ "${{ matrix.component }}" == "cosmic-greeter" ]; then
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get infos for ${{ matrix.component }}-daemon package"
-            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }}-daemon package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           else
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           fi
 
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ env.ARCH }}.deb
+          path: debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
@@ -116,7 +118,7 @@ jobs:
         if: ${{ matrix.component == 'cosmic-greeter' }}
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ env.ARCH }}.deb
+          path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
