@@ -87,7 +87,7 @@ jobs:
         if: ${{ matrix.component == 'cosmic-greeter' }}
         uses: actions/upload-artifact@v7
         with:
-          path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_{{ env.ARCH }}.deb
+          path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ env.ARCH }}.deb
           if-no-files-found: error
           retention-days: 1
           archive: false
