@@ -43,5 +43,5 @@ jobs:
         run: |
           sudo apt install -y devscripts
           cp "local/changelog/${{ env.NAME }}" debian/changelog
-          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  "Release for COSMIC epoch-1.5.0"
+          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing "Release for COSMIC epoch-1.5.0"
           cat debian/changelog
