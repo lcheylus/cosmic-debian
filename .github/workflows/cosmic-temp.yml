@@ -22,7 +22,6 @@ jobs:
         with:
           sparse-checkout: |
             changelog
-            utils
           path: local
 
       - name: Check checkouts
@@ -48,11 +47,16 @@ jobs:
         run: |
           sudo apt install -y devscripts
           cp "local/changelog/${{ env.NAME }}" debian/changelog
-          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing --release-heuristic log "Release for COSMIC epoch-1.5.0"
+          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing "new version for upstream release COSMIC epoch-1.5.0"
           cat debian/changelog
 
       - name: Commit changelog for ${{ env.NAME }}
         run: |
           cp debian/changelog "local/changelog/${{ env.NAME }}"
           cd local
-          utils/commit-file.sh "changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "changelog/${{ env.NAME }}"
+          git commit -m "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
+          git push
