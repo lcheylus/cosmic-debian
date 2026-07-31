@@ -55,7 +55,7 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 | [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | ✅                      | -                    |
 | [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | ✅                      | ✅                   |
 
-Some components require additional dependencies. For exemple, `cosmic-icons`
+Some components require additional dependencies. For example, `cosmic-icons`
 component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
 
 List of additional packages: "Depends" to install COSMIC components/apps not
@@ -73,7 +73,13 @@ available as official Debian packages
 
 ## TODO
 
-- [ ] Build COSMIC components with Rust on local Debian testing
-- [ ] Tests COSMIC DE on local Debian testing
-- [ ] Add GH workflow to build Debian packages for each COSMIC component
-- [ ] Release Debian packages from official COSMIC release/tag
+- [x] Build COSMIC components with Rust on local Debian testing
+- [x] Tests COSMIC DE on local Debian testing
+- [x] Add GH workflow to build additional packages
+- [ ] Release additional packages
+- [ ] Add GH workflow to build Debian packages for each COSMIC apps
+- [ ] Release Debian packages from official COSMIC release/tag for COSMIC apps
+- [x] Add GH workflow to build Debian packages for each COSMIC component
+- [ ] Release Debian packages from official COSMIC release/tag for COSMIC components
+- [ ] Add shell script to download and install packages for a release
+- [ ] Add shell script to download and install packages for COSMIC apps
