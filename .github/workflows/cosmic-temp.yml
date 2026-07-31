@@ -21,6 +21,7 @@ jobs:
         with:
           sparse-checkout: |
             changelog
+            utils/commit-file.sh
           path: local
 
       - name: Check checkouts
@@ -38,6 +39,9 @@ jobs:
             echo "ERROR: no changelog file for ${{ env.NAME }}"
             exit 1
           fi
+          echo "### check Git remote"
+          cd local
+          git remote -v
 
       - name: Update changelog for ${{ env.NAME }}
         run: |
@@ -45,3 +49,8 @@ jobs:
           cp "local/changelog/${{ env.NAME }}" debian/changelog
           DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing --release-heuristic log "Release for COSMIC epoch-1.5.0"
           cat debian/changelog
+
+      # - name: Commit changelog for ${{ env.NAME }}
+      #   run: |
+      #     cp debian/changelog "local/changelog/${{ env.NAME }}"
+      #     local/utils/commit-file.sh "local/changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
