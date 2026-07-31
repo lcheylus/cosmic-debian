@@ -19,7 +19,7 @@ jobs:
       - name: Checkout changelog for ${{ env.NAME }}
         uses: actions/checkout@v7
         with:
-          sparse-chekout:
+          sparse-checkout: |
             changelog/cosmic-${{ env.NAME }}
           sparse-checkout-cone-mode: false
           path: local
@@ -31,7 +31,7 @@ jobs:
           if [ -d "local" ]; then
             ls -R local
           fi
-          if [ -d "local/changelog/cosmic-${{ env.NAME }}" ]; then
+          if [ -r "local/changelog/cosmic-${{ env.NAME }}" ]; then
             echo "### changelog file"
             cat "local/changelog/cosmic-${{ env.NAME }}"
           else
