@@ -3,12 +3,13 @@ on: workflow_dispatch
 
 jobs:
   update-changelog:
+    permissions:  # Allow to commit file
+      contents: write
     env:
       NAME: cosmic-randr
       VERSION: 1.4.0
       ARCH: amd64
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout sources for ${{ env.NAME }}
         uses: actions/checkout@v7
@@ -50,7 +51,7 @@ jobs:
           DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing --release-heuristic log "Release for COSMIC epoch-1.5.0"
           cat debian/changelog
 
-      # - name: Commit changelog for ${{ env.NAME }}
-      #   run: |
-      #     cp debian/changelog "local/changelog/${{ env.NAME }}"
-      #     local/utils/commit-file.sh "local/changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
+      - name: Commit changelog for ${{ env.NAME }}
+        run: |
+          cp debian/changelog "local/changelog/${{ env.NAME }}"
+          local/utils/commit-file.sh "local/changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
