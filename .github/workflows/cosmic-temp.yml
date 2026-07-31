@@ -30,9 +30,10 @@ jobs:
           if [ -d "local" ]; then
             ls -R local
           fi
-          if [ -r "local/changelog/cosmic-${{ env.NAME }}" ]; then
+          filename="local/changelog/${{ env.NAME }}"
+          if [ -r "$filename" ]; then
             echo "### changelog file"
-            cat "local/changelog/cosmic-${{ env.NAME }}"
+            cat "$filename"
           else
             echo "ERROR: no changelog file for ${{ env.NAME }}"
           fi
