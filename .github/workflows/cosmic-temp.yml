@@ -1,0 +1,39 @@
+name: Test workflow to update changelog
+on: workflow_dispatch
+
+jobs:
+  update-changelog:
+    env:
+      NAME: cosmic-randr
+      VERSION: 1.4.0
+      ARCH: amd64
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources for ${{ env.NAME }}
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/${{ env.NAME }}'
+          ref: 'epoch-${{ env.VERSION }}'
+
+      - name: Checkout changelog for ${{ env.NAME }}
+        uses: actions/checkout@v7
+        with:
+          sparse-chekout:
+            changelog/cosmic-${{ env.NAME }}
+          sparse-checkout-cone-mode: false
+          path: local
+
+      - name: Check checkouts
+        run: |
+          pwd
+          ls -l
+          if [ -d "local" ]; then
+            ls -R local
+          fi
+          if [ -d "local/changelog/cosmic-${{ env.NAME }}" ]; then
+            echo "### changelog file"
+            cat "local/changelog/cosmic-${{ env.NAME }}"
+          else
+            echo "ERROR: no changelog file for ${{ env.NAME }}"
+          fi

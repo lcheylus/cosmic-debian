@@ -1,0 +1,11 @@
+cosmic-randr (1.4.0) UNRELEASED; urgency=medium
+
+  * Release for COSMIC epoch-1.4.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Sat, 25 Jul 2026 22:18:12 +0200
+
+cosmic-randr (0.1.0) jammy; urgency=medium
+
+  * Initial release
+
+ -- Michael Murphy <michael@mmurphy.dev>  Fri, 22 Dec 2023 02:41:12 +0100
