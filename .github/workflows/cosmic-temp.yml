@@ -39,9 +39,9 @@ jobs:
             exit 1
           fi
 
-      - name: Update changelog for {{ env.NAME }}
+      - name: Update changelog for ${{ env.NAME }}
         run: |
-          apt-get install devscripts
+          sudo apt install -y devscripts
           cd local/changelog
           cp "cosmic-${{ env.NAME }}" changelog
           DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  "Release for COSMIC epoch-1.5.0"
