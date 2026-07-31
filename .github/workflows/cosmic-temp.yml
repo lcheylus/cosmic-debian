@@ -22,7 +22,7 @@ jobs:
         with:
           sparse-checkout: |
             changelog
-            utils/commit-file.sh
+            utils
           path: local
 
       - name: Check checkouts
@@ -54,4 +54,5 @@ jobs:
       - name: Commit changelog for ${{ env.NAME }}
         run: |
           cp debian/changelog "local/changelog/${{ env.NAME }}"
-          local/utils/commit-file.sh "local/changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
+          cd local
+          utils/commit-file.sh "changelog/${{ env.NAME }}" "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
