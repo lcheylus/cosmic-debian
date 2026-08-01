@@ -100,7 +100,13 @@ jobs:
           skip-decompress: true
 
       - name: Check downloaded artifacts
-        run: ls -l *.deb
+        run: |
+          ls -l *.deb
+          count=$(find . -maxdepth 1 -type f -name '*.deb' | wc -l)
+          if [ "$count" -ne 7 ]; then
+            echo "ERROR: Expected 7 .deb files, found $count"
+            exit 1
+          fi
 
       - name: Get version for packages
         id: version
@@ -128,8 +134,8 @@ jobs:
           body: |
             Debian packages needed by COSMIC components and apps, not available in official Debian testing packages.
 
-            - [adw-gtk3](https://github.com/pop-os/adw-gtk3): unofficial GTK3 port of libadwaita - version ${{ steps.version.outputs.adw-gtk3 }}"
-            - [appstream-data-pop*](https://github.com/pop-os/appstream-data): additional appstream data for Pop!_OS - version ${{ steps.version.outputs.appstream-data }}"
-            - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC - version ${{ steps.version.outputs.pop-fonts }}"
-            - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS - version ${{ steps.version.outputs.pop-icon }}"
-            - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS - version ${{ steps.version.outputs.pop-sound }}"
+            - [adw-gtk3](https://github.com/pop-os/adw-gtk3): unofficial GTK3 port of libadwaita (version ${{ steps.version.outputs.adw-gtk3 }})
+            - [appstream-data-pop*](https://github.com/pop-os/appstream-data): additional appstream data for Pop!_OS (version ${{ steps.version.outputs.appstream-data }})
+            - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC (version ${{ steps.version.outputs.pop-fonts }})
+            - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS (version ${{ steps.version.outputs.pop-icon }})
+            - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS (version ${{ steps.version.outputs.pop-sound }})
