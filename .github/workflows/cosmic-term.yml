@@ -2,7 +2,7 @@ name: Build package cosmic-term
 on: workflow_dispatch
 
 jobs:
-  cosmic-randr:
+  cosmic-term:
     env:
       NAME: cosmic-term
       VERSION: 1.4.0
@@ -21,6 +21,15 @@ jobs:
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
+          setup-hook: |
+            # Replace build target in debian/rules files + no vendoring
+            sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
+            sed -i 's/build-vendored/build-release/' debian/rules
+            echo "### debian/rules file"
+            cat debian/rules
+
+            # Remove .cargo/config.toml with vendored sources
+            if [ -f .cargo/config.toml ]; then rm .cargo/config.toml; fi
 
       - name: Get infos/contents for package
         run: |
