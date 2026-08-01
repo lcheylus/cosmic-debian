@@ -2,7 +2,7 @@ name: Build packages for COSMIC apps
 on: workflow_dispatch
 
 jobs:
-  cosmic-build:
+  build-apps:
     name: Build ${{ matrix.app }}
     env:
       VERSION: 1.4.0
@@ -25,13 +25,16 @@ jobs:
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
-          # Replace build target in debian/rules files + no vendoring
-          setup-hook: |
+          extra-build-deps: ca-certificates
+          before-build-hook: |
             # Replace build target in debian/rules files + no vendoring
             sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
             sed -i 's/build-vendored/build-release/' debian/rules
             echo "### debian/rules file"
             cat debian/rules
+
+            # Remove .cargo/config.toml with vendored sources
+            if [ -f .cargo/config.toml ]; then rm .cargo/config.toml; fi
 
       - name: Get infos/contents for package
         run: |
