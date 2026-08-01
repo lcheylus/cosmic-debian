@@ -100,11 +100,11 @@ jobs:
           skip-decompress: true
 
       - name: Check downloaded artifacts
-        run: ls -R
+        run: ls -l *.deb
 
       - name: Set current date
         id: date
-        run: echo "value=$(date +F%)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(date +%F)" >> "$GITHUB_OUTPUT"
 
       - name: Publish release
         uses: softprops/action-gh-release@v3
