@@ -1,0 +1,117 @@
+name: Release packages for COSMIC depends
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: Build ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - {name: adw-gtk3, repo: adw-gtk3, version: 5.3.0-0pop1 }
+          - {name: appstream-data-pop, repo: appstream-data, version: 0.0.3 }
+          - {name: pop-icon-theme, repo: icon-theme, version: 3.5.1 }
+          - {name: pop-fonts, repo: fonts, version: 1.0.3 }
+          - {name: pop-sound-theme, repo: gtk-theme, version: 5.5.1 }
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+        with:
+          repository: 'pop-os/${{ matrix.repo }}'
+
+      - name: Build package
+        uses: jtdor/build-deb-action@v1
+        with:
+          docker-image: debian:testing
+          buildpackage-opts: --build=binary --no-sign
+
+      - name: Get infos/contents for packages
+        run: |
+          if [ "${{ matrix.name }}" == "appstream-data-pop" ]; then
+            echo "::group::Get infos for ${{ matrix.name }} package"
+            dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get contents for ${{ matrix.name }} package"
+            dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get infos for ${{ matrix.name }}-icons package"
+            dpkg --info debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get contents for ${{ matrix.name }}-icons package"
+            dpkg --contents debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get infos for ${{ matrix.name }}-icons-hidpi package"
+            dpkg --info debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get contents for ${{ matrix.name }}-icons-hidpi package"
+            dpkg --contents debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+          else
+            echo "::group::Get infos for ${{ matrix.name }} package"
+            dpkg --info debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+            echo "::group::Get contents for ${{ matrix.name }} package"
+            dpkg --contents debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
+            echo "::endgroup::"
+          fi
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
+          if-no-files-found: error
+          retention-days: 7
+          archive: false
+
+      # Multiple packages for appstream-data-pop
+      - name: Upload appstream-data-pop-icons
+        if: ${{ matrix.name == 'appstream-data-pop' }}
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_all.deb
+          if-no-files-found: error
+          retention-days: 7
+          archive: false
+      - name: Upload appstream-data-pop-icons-hidpi
+        if: ${{ matrix.name == 'appstream-data-pop' }}
+        uses: actions/upload-artifact@v7
+        with:
+          path: debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_all.deb
+          if-no-files-found: error
+          retention-days: 7
+          archive: false
+
+  # Job to create a release with artifacts for COSMIC depends
+  release:
+    name: Create release for COSMIC depends
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts from build job
+        uses: actions/download-artifact@v8
+        with:
+          pattern: "*.deb"
+
+      - name: Check downloaded artifacts
+        run: ls -R
+
+      - name: Set current date
+        id: date
+        run: echo "value=$(date +F%)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v3
+        with:
+          draft: true
+          files: "*.deb"
+          fail_on_unmatched_files: true
+          name: "Release for COSMIC depends - ${{ steps.date.outputs.value }}"
+          body: |
+            Debian packages needed by COSMIC components and apps, not available in official Debian testing packages.
+
+            - [adw-gtk3](https://github.com/pop-os/adw-gtk3): unofficial GTK3 port of libadwaita
+            - [appstream-data-pop*](https://github.com/pop-os/appstream-data): additional appstream data for Pop!_OS
+            - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC
+            - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS
+            - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS
