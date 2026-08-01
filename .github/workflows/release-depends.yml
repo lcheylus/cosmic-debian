@@ -1,6 +1,10 @@
 name: Release packages for COSMIC depends
 on: workflow_dispatch
 
+# Needed to create a release
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build ${{ matrix.name }}
@@ -93,6 +97,7 @@ jobs:
         with:
           pattern: "*.deb"
           merge-multiple: true
+          skip-decompress: true
 
       - name: Check downloaded artifacts
         run: ls -R
