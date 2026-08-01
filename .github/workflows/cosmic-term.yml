@@ -21,7 +21,8 @@ jobs:
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
-          setup-hook: |
+          extra-build-deps: ca-certificates
+          before-build-hook: |
             # Replace build target in debian/rules files + no vendoring
             sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
             sed -i 's/build-vendored/build-release/' debian/rules
