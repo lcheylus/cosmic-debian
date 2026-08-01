@@ -102,6 +102,18 @@ jobs:
       - name: Check downloaded artifacts
         run: ls -l *.deb
 
+      - name: Get version for packages
+        id: version
+        run: |
+          echo "adw-gtk3=$(ls adw-gtk3*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "appstream-data=$(ls appstream-data-pop_*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-fonts=$(ls pop-fonts*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-icon=$(ls pop-icon*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-sound=$(ls pop-sound*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+
+          echo "Contents of GITHUB_OUTPUT:"
+          cat "$GITHUB_OUTPUT"
+
       - name: Set current date
         id: date
         run: echo "value=$(date +%F)" >> "$GITHUB_OUTPUT"
@@ -116,8 +128,8 @@ jobs:
           body: |
             Debian packages needed by COSMIC components and apps, not available in official Debian testing packages.
 
-            - [adw-gtk3](https://github.com/pop-os/adw-gtk3): unofficial GTK3 port of libadwaita
-            - [appstream-data-pop*](https://github.com/pop-os/appstream-data): additional appstream data for Pop!_OS
-            - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC
-            - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS
-            - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS
+            - [adw-gtk3](https://github.com/pop-os/adw-gtk3): unofficial GTK3 port of libadwaita - version ${{ steps.version.outputs.adw-gtk3 }}"
+            - [appstream-data-pop*](https://github.com/pop-os/appstream-data): additional appstream data for Pop!_OS - version ${{ steps.version.outputs.appstream-data }}"
+            - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC - version ${{ steps.version.outputs.pop-fonts }}"
+            - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS - version ${{ steps.version.outputs.pop-icon }}"
+            - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS - version ${{ steps.version.outputs.pop-sound }}"
