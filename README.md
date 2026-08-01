@@ -49,10 +49,10 @@ List of [COSMIC Apps](https://system76.com/cosmic/apps)
 
 | COSMIC app                                                | Description       | Build on Debian testing | GitHub job for build |
 |-----------------------------------------------------------|-------------------|:-----------------------:|:--------------------:|
-| [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | ✅                      | -                    |
+| [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | ✅                      | ✅                   |
 | [cosmic-files](https://github.com/pop-os/cosmic-files)    | Files Manager     | ✅                      | ✅                   |
-| [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | ✅                      | -                    |
-| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | ✅                      | -                    |
+| [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | ✅                      | ✅                   |
+| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | ✅                      | ✅                   |
 | [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | ✅                      | ✅                   |
 
 Some components require additional dependencies. For example, `cosmic-icons`
@@ -77,7 +77,7 @@ available as official Debian packages
 - [x] Tests COSMIC DE on local Debian testing
 - [x] Add GH workflow to build additional packages
 - [ ] Release additional packages
-- [ ] Add GH workflow to build Debian packages for each COSMIC apps
+- [x] Add GH workflow to build Debian packages for each COSMIC apps
 - [ ] Release Debian packages from official COSMIC release/tag for COSMIC apps
 - [x] Add GH workflow to build Debian packages for each COSMIC component
 - [ ] Release Debian packages from official COSMIC release/tag for COSMIC components
