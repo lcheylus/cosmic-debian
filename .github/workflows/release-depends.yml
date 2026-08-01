@@ -92,6 +92,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           pattern: "*.deb"
+          merge-multiple: true
 
       - name: Check downloaded artifacts
         run: ls -R
