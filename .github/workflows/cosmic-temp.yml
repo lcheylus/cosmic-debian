@@ -79,14 +79,22 @@ jobs:
           cp "local-repo/changelog/${{ matrix.component }}" debian/changelog
           DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
           cat debian/changelog
+          cp -v debian/changelog "local-repo/changelog/${{ matrix.component }}"
 
-      - name: Commit changelog for ${{ matrix.component }}
+  commit-changelog:
+    name: Commit updated changelog
+    needs: update-changelog
+    runs-on: ubuntu-latest
+    permissions:  # Allow to commit file
+      contents: write
+
+    steps:
+      - name: Commit changelog
         run: |
-          cp debian/changelog "local-repo/changelog/${{ matrix.component }}"
           cd local-repo
 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "changelog/${{ matrix.component }}"
-          git commit -m "Update changelog for ${{ matrix.component }} - version ${{ env.VERSION }}"
+          git add "changelog"
+          git commit -m "Update changelog for COSMIC components - version ${{ env.VERSION }}"
           git push
