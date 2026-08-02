@@ -3,11 +3,11 @@ on: workflow_dispatch
 
 jobs:
   update-changelog:
+    name: Update changelog for ${{ matrix.component }}
     permissions:  # Allow to commit file
       contents: write
     env:
       VERSION: 1.4.0
-      ARCH: amd64
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,12 +17,33 @@ jobs:
           - cosmic-launcher
           - cosmic-panel
           - cosmic-randr
+          - cosmic-workspaces
+          - pop-launcher
 
     steps:
       - name: Checkout sources for ${{ matrix.component }}
+        if: ${{ matrix.component != 'cosmic-workspaces' && matrix.component != 'pop-launcher' }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/${{ matrix.component }}'
+          ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
+
+      # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
+      - name: Checkout sources for cosmic-workspaces
+        if: ${{ matrix.component == 'cosmic-workspaces' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
+        with:
+          repository: 'pop-os/cosmic-workspaces-epoch'
+          ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
+
+      # Special case for pop-launcher repository (repo = pop-os/launcher)
+      - name: Checkout sources for pop-launcher
+        if: ${{ matrix.component == 'pop-launcher' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
+        with:
+          repository: 'pop-os/launcher'
           ref: 'epoch-${{ env.VERSION }}'
           persist-credentials: false
 
@@ -32,7 +53,6 @@ jobs:
           sparse-checkout: |
             changelog
           path: local-repo
-          persist-credentials: false
 
       - name: Check checkouts
         run: |
