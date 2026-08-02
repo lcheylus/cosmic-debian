@@ -1,15 +1,3 @@
-cosmic-randr (1.5.0) testing; urgency=medium
-
-  * new version for upstream release COSMIC epoch-1.5.0
-
- -- Laurent Cheylus <foxy@free.fr>  Fri, 31 Jul 2026 12:46:23 +0000
-
-cosmic-randr (1.4.0) testing; urgency=medium
-
-  * Release for COSMIC epoch-1.4.0
-
- -- Laurent Cheylus <foxy@free.fr>  Sat, 25 Jul 2026 22:18:12 +0200
-
 cosmic-randr (0.1.0) jammy; urgency=medium
 
   * Initial release
