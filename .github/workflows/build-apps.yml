@@ -1,5 +1,12 @@
-name: Build packages for COSMIC apps
+name: Build COSMIC apps
 on: workflow_dispatch
+
+permissions: {}
+
+# Prevents concurrent runs of the workflow
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
   build-apps:
@@ -13,13 +20,14 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/${{ matrix.app }}'
           ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
 
       - name: Build package
-        uses: jtdor/build-deb-action@v1
+        uses: jtdor/build-deb-action@473136f14a42a231124c1f7cefaedfe941203c38  #v1.9.1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
@@ -46,7 +54,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Upload package
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
           if-no-files-found: error
