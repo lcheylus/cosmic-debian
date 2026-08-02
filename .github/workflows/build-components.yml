@@ -1,8 +1,15 @@
-name: Build packages for COSMIC components
+name: Build COSMIC components
 on: workflow_dispatch
 
+permissions: {}
+
+# Prevents concurrent runs of the workflow
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
-  cosmic-build:
+  build:
     name: Build ${{ matrix.component }}
     env:
       VERSION: 1.4.0
@@ -39,29 +46,32 @@ jobs:
     steps:
       - name: Checkout sources
         if: ${{ matrix.component != 'cosmic-workspaces' && matrix.component != 'pop-launcher' }}
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/${{ matrix.component }}'
           ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
 
       # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
       - name: Checkout sources for cosmic-workspaces
         if: ${{ matrix.component == 'cosmic-workspaces' }}
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/cosmic-workspaces-epoch'
           ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
 
       # Special case for pop-launcher repository (repo = pop-os/launcher)
       - name: Checkout sources for pop-launcher
         if: ${{ matrix.component == 'pop-launcher' }}
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/launcher'
           ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
 
       - name: Build package
-        uses: jtdor/build-deb-action@v1
+        uses: jtdor/build-deb-action@473136f14a42a231124c1f7cefaedfe941203c38  #v1.9.1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
@@ -125,7 +135,7 @@ jobs:
           fi
 
       - name: Upload package
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
@@ -135,7 +145,7 @@ jobs:
           # Special case for cosmic-greeter component: 2 packages built
       - name: Upload cosmic-greeter-daemon
         if: ${{ matrix.component == 'cosmic-greeter' }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
