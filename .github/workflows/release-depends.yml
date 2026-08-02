@@ -1,4 +1,4 @@
-name: Release packages for COSMIC depends
+name: Create release for COSMIC depends
 on: workflow_dispatch
 
 permissions: {}
@@ -137,7 +137,7 @@ jobs:
           files: "*.deb"
           fail_on_unmatched_files: true
           make_latest: false
-          name: "Release for COSMIC depends - ${{ steps.date.outputs.value }}"
+          name: "COSMIC depends - ${{ steps.date.outputs.value }}"
           body: |
             Debian packages needed by COSMIC components and apps, not available in official Debian testing packages.
 
