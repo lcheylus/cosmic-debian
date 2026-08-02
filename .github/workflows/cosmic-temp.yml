@@ -6,57 +6,67 @@ jobs:
     permissions:  # Allow to commit file
       contents: write
     env:
-      NAME: cosmic-randr
       VERSION: 1.4.0
       ARCH: amd64
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout sources for ${{ env.NAME }}
-        uses: actions/checkout@v7
-        with:
-          repository: 'pop-os/${{ env.NAME }}'
-          ref: 'epoch-${{ env.VERSION }}'
+    strategy:
+      matrix:
+        component:
+          - cosmic-bg
+          - cosmic-icons
+          - cosmic-launcher
+          - cosmic-panel
+          - cosmic-randr
 
-      - name: Checkout changelog for ${{ env.NAME }}
-        uses: actions/checkout@v7
+    steps:
+      - name: Checkout sources for ${{ matrix.component }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
+        with:
+          repository: 'pop-os/${{ matrix.component }}'
+          ref: 'epoch-${{ env.VERSION }}'
+          persist-credentials: false
+
+      - name: Checkout changelog for ${{ matrix.component }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           sparse-checkout: |
             changelog
-          path: local
+          path: local-repo
+          persist-credentials: false
 
       - name: Check checkouts
         run: |
           pwd
           ls -l
-          if [ -d "local" ]; then
-            ls -R local
+          if [ -d "local-repo" ]; then
+            ls -R local-repo
           fi
-          filename="local/changelog/${{ env.NAME }}"
+          filename="local-repo/changelog/${{ matrix.component }}"
           if [ -r "$filename" ]; then
             echo "### changelog file"
             cat "$filename"
           else
-            echo "ERROR: no changelog file for ${{ env.NAME }}"
+            echo "ERROR: no changelog file for ${{ matrix.component }}"
             exit 1
           fi
           echo "### check Git remote"
-          cd local
+          cd local-repo
           git remote -v
 
-      - name: Update changelog for ${{ env.NAME }}
+      - name: Update changelog for ${{ matrix.component }}
         run: |
           sudo apt install -y devscripts
-          cp "local/changelog/${{ env.NAME }}" debian/changelog
-          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v 1.5.0  --distribution testing "new version for upstream release COSMIC epoch-1.5.0"
+          cp "local-repo/changelog/${{ matrix.component }}" debian/changelog
+          DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
           cat debian/changelog
 
-      - name: Commit changelog for ${{ env.NAME }}
+      - name: Commit changelog for ${{ matrix.component }}
         run: |
-          cp debian/changelog "local/changelog/${{ env.NAME }}"
-          cd local
+          cp debian/changelog "local-repo/changelog/${{ matrix.component }}"
+          cd local-repo
 
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "changelog/${{ env.NAME }}"
-          git commit -m "Update changelog for ${{ env.NAME }} - version ${{ env.VERSION }}"
+          git add "changelog/${{ matrix.component }}"
+          git commit -m "Update changelog for ${{ matrix.component }} - version ${{ env.VERSION }}"
           git push
