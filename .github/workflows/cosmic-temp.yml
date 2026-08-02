@@ -21,65 +21,41 @@ jobs:
           - pop-launcher
 
     steps:
-      - name: Checkout sources for ${{ matrix.component }}
-        if: ${{ matrix.component != 'cosmic-workspaces' && matrix.component != 'pop-launcher' }}
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
-        with:
-          repository: 'pop-os/${{ matrix.component }}'
-          ref: 'epoch-${{ env.VERSION }}'
-          persist-credentials: false
-
-      # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
-      - name: Checkout sources for cosmic-workspaces
-        if: ${{ matrix.component == 'cosmic-workspaces' }}
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
-        with:
-          repository: 'pop-os/cosmic-workspaces-epoch'
-          ref: 'epoch-${{ env.VERSION }}'
-          persist-credentials: false
-
-      # Special case for pop-launcher repository (repo = pop-os/launcher)
-      - name: Checkout sources for pop-launcher
-        if: ${{ matrix.component == 'pop-launcher' }}
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
-        with:
-          repository: 'pop-os/launcher'
-          ref: 'epoch-${{ env.VERSION }}'
-          persist-credentials: false
-
       - name: Checkout changelog for ${{ matrix.component }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           sparse-checkout: |
-            changelog
-          path: local-repo
+            changelog/${{ matrix.component }}
+          sparse-checkout-cone-mode: false
 
       - name: Check checkouts
         run: |
-          pwd
-          ls -l
-          if [ -d "local-repo" ]; then
-            ls -R local-repo
-          fi
-          filename="local-repo/changelog/${{ matrix.component }}"
+          ls -l changelog
+          filename="changelog/${{ matrix.component }}"
           if [ -r "$filename" ]; then
             echo "### changelog file"
-            cat "$filename"
+            mkdir debian
+            cp -v "$filename" debian/changelog
+            cat debian/changelog
           else
             echo "ERROR: no changelog file for ${{ matrix.component }}"
             exit 1
           fi
-          echo "### check Git remote"
-          cd local-repo
-          git remote -v
 
       - name: Update changelog for ${{ matrix.component }}
         run: |
           sudo apt install -y devscripts
-          cp "local-repo/changelog/${{ matrix.component }}" debian/changelog
           DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
           cat debian/changelog
-          cp -v debian/changelog "local-repo/changelog/${{ matrix.component }}"
+          cp -v debian/changelog "changelog/${{ matrix.component }}"
+
+      - name: Upload changelog file for ${{ matrix.component }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
+        with:
+          name: ${{ matrix.component }}
+          path: "changelog/${{ matrix.component }}"
+          if-no-files-found: error
+          retention-days: 1
 
   commit-changelog:
     name: Commit updated changelog
@@ -89,10 +65,14 @@ jobs:
       contents: write
 
     steps:
+      - name: Download changelog files
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  #v8.0.1
+
+      - name: Check changelog files
+        run: ls -l changelog
+
       - name: Commit changelog
         run: |
-          cd local-repo
-
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "changelog"
