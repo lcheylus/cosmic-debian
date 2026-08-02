@@ -1,13 +1,14 @@
 name: Test workflow to update changelog
 on: workflow_dispatch
 
+permissions: {}
+
+env:
+  VERSION: 1.4.0
+
 jobs:
   update-changelog:
     name: Update changelog for ${{ matrix.component }}
-    permissions:  # Allow to commit file
-      contents: write
-    env:
-      VERSION: 1.4.0
     runs-on: ubuntu-latest
     strategy:
       matrix:
