@@ -1,8 +1,15 @@
-name: Build packages for COSMIC depends
+name: Build COSMIC depends
 on: workflow_dispatch
 
+permissions: {}
+
+# Prevents concurrent runs of the workflow
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
-  cosmic-build:
+  build:
     name: Build ${{ matrix.name }}
     runs-on: ubuntu-latest
     strategy:
@@ -16,12 +23,13 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           repository: 'pop-os/${{ matrix.repo }}'
+          persist-credentials: false
 
       - name: Build package
-        uses: jtdor/build-deb-action@v1
+        uses: jtdor/build-deb-action@473136f14a42a231124c1f7cefaedfe941203c38  #v1.9.1
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
@@ -57,7 +65,7 @@ jobs:
           fi
 
       - name: Upload package
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.name }}_${{ matrix.version }}_all.deb
           if-no-files-found: error
@@ -67,7 +75,7 @@ jobs:
       # Multiple packages for appstream-data-pop
       - name: Upload appstream-data-pop-icons
         if: ${{ matrix.name == 'appstream-data-pop' }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.name }}-icons_${{ matrix.version }}_all.deb
           if-no-files-found: error
@@ -75,7 +83,7 @@ jobs:
           archive: false
       - name: Upload appstream-data-pop-icons-hidpi
         if: ${{ matrix.name == 'appstream-data-pop' }}
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
         with:
           path: debian/artifacts/${{ matrix.name }}-icons-hidpi_${{ matrix.version }}_all.deb
           if-no-files-found: error
