@@ -70,14 +70,36 @@ jobs:
           ref: 'epoch-${{ env.VERSION }}'
           persist-credentials: false
 
+      - name: Checkout changelog for ${{ matrix.component }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
+        with:
+          path: local-debian
+          sparse-checkout: |
+            changelog/${{ matrix.component }}
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - name: Check changelog for ${{ matrix.component }}
+        run: |
+          filename="local-debian/changelog/${{ matrix.component }}"
+          if [ -r "$filename" ]; then
+            cp -v "$filename" debian/changelog
+            echo "### changelog file"
+            cat debian/changelog
+          else
+            echo "ERROR: no changelog file for ${{ matrix.component }}"
+            exit 1
+          fi
+
       - name: Build package
         uses: jtdor/build-deb-action@473136f14a42a231124c1f7cefaedfe941203c38  #v1.9.1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: devscripts
+          extra-build-deps: devscripts dpkg-dev  # needed for dch and dpkg-parsechangelog tools
           setup-hook: |
+            # TODO: merge in 'before-build-hook'
             # Replace build target in debian/rules files + no vendoring
             sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
             sed -i 's/build-vendored/build-release/' debian/rules
@@ -101,12 +123,13 @@ jobs:
             echo "### debian/rules file"
             cat debian/rules
 
-            # TODO
-            # - Copy debian/changelog from repository
-            # - Commit debian/changelog after release to keep changes
-            # - Do not update changelog if not needed
-            #
-            DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  "Release for COSMIC epoch-${{ env.VERSION }}"
+            # TODO: Commit debian/changelog after release to keep changes
+            echo "::group::Update changelog"
+            if [ "$(dpkg-parsechangelog --show-field Version)" != "${{ env.VERSION }}" ]; then
+              DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
+            fi
+            cat debian/changelog
+            echo "::endgroup::"
 
           buildpackage-opts: --build=binary --no-sign
 
