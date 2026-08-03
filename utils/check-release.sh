@@ -95,7 +95,13 @@ check_artifacts()
 
 	while IFS= read -r item; do
 		name=$(jq -r '.name' <<< "$item")
-		tmp_pkgs+=("${name%%_*}")
+		case $name in
+		# filename as cosmic-comp_1.4.0_amd64.deb
+		*.deb)
+			tmp_pkgs+=("${name%%_*}")
+			;;
+		*) ;;
+		esac
 	done < <(jq -c '.artifacts[]' <<< "$1")
 
 	# Sort packages => list
@@ -178,7 +184,7 @@ if [ "${status}" = "completed" ]; then
 		curl -sL -H "Accept: application/vnd.github+json" \
 			-H "Authorization: Bearer ${GH_TOKEN}" \
 			-H "X-GitHub-Api-Version: 2026-03-10" \
-			https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts
+			https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts?per_page=200
 	)
 	# echo "$response"
 else
