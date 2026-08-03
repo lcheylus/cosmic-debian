@@ -30,7 +30,6 @@ List of COSMIC components with status:
 | [cosmic-idle](https://github.com/pop-os/cosmic-idle)                             | ✅                      | ✅                   |
 | [cosmic-initial-setup](https://github.com/pop-os/cosmic-initial-setup)           | ✅                      | ✅                   |
 | [cosmic-launcher](https://github.com/pop-os/cosmic-launcher)                     | ✅                      | ✅                   |
-| [cosmic-monitor](https://github.com/pop-os/cosmic-monitor)                       | ✅                      | ✅                   |
 | [cosmic-notifications](https://github.com/pop-os/cosmic-notifications)           | ✅                      | ✅                   |
 | [cosmic-osd](https://github.com/pop-os/cosmic-osd)                               | ✅                      | ✅                   |
 | [cosmic-panel](https://github.com/pop-os/cosmic-panel)                           | ✅                      | ✅                   |
@@ -47,13 +46,14 @@ List of COSMIC components with status:
 
 List of [COSMIC Apps](https://system76.com/cosmic/apps)
 
-| COSMIC app                                                | Description       | Build on Debian testing | GitHub job for build |
-|-----------------------------------------------------------|-------------------|:-----------------------:|:--------------------:|
-| [cosmic-edit](https://github.com/pop-os/cosmic-edit)      | Text Editor       | ✅                      | ✅                   |
-| [cosmic-files](https://github.com/pop-os/cosmic-files)    | Files Manager     | ✅                      | ✅                   |
-| [cosmic-player](https://github.com/pop-os/cosmic-player)  | Media Player      | ✅                      | ✅                   |
-| [cosmic-store](https://github.com/pop-os/cosmic-store)    | Apps Store        | ✅                      | ✅                   |
-| [cosmic-term](https://github.com/pop-os/cosmic-term)      | Terminal          | ✅                      | ✅                   |
+| COSMIC app                                                 | Description       | Build on Debian testing | GitHub job for build |
+|------------------------------------------------------------|-------------------|:-----------------------:|:--------------------:|
+| [cosmic-edit](https://github.com/pop-os/cosmic-edit)       | Text Editor       | ✅                      | ✅                   |
+| [cosmic-files](https://github.com/pop-os/cosmic-files)     | Files Manager     | ✅                      | ✅                   |
+| [cosmic-monitor](https://github.com/pop-os/cosmic-monitor) | System Monitor    | ✅                      | ✅                   |
+| [cosmic-player](https://github.com/pop-os/cosmic-player)   | Media Player      | ✅                      | ✅                   |
+| [cosmic-store](https://github.com/pop-os/cosmic-store)     | Apps Store        | ✅                      | ✅                   |
+| [cosmic-term](https://github.com/pop-os/cosmic-term)       | Terminal          | ✅                      | ✅                   |
 
 Some components require additional dependencies. For example, `cosmic-icons`
 component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
