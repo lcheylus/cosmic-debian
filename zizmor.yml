@@ -1,0 +1,7 @@
+rules:
+  artipacked:
+    ignore:
+      - release-cosmic.yml
+  superfluous-actions:
+    ignore:
+      - release-cosmic.yml
