@@ -276,6 +276,7 @@ jobs:
             Debian packages built on testing to install COSMIC Desktop Environment
             [version epoch-${{ env.VERSION }}](https://github.com/pop-os/cosmic-epoch/releases/tag/epoch-${{ env.VERSION }})
 
+
             Contains all the components unecessary to install COSMIC DE and optional applications
             (Edit, Files, Monitor, Player, Store and Term).
 
@@ -293,6 +294,7 @@ jobs:
           sparse-checkout: |
             changelog
 
+      # All artifacts are downloaded, also unwanted *.deb files
       - name: Download changelog files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  #v8.0.1
         with:
@@ -301,6 +303,7 @@ jobs:
 
       - name: Check changelog files
         run: |
+          rm -f changelog/*.deb
           ls -l changelog
           echo "### git status"
           git status
