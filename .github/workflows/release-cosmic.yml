@@ -21,10 +21,10 @@ jobs:
     steps:
       - name: Validate version
         run: |
-          if [[ "${{ env.VERSION }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Valid version: ${{ env.VERSION }}"
+          if [[ "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Valid version: ${VERSION}"
           else
-            echo "Invalid tag for version: ${{ env.VERSION }}"
+            echo "Invalid tag for version: ${VERSION}"
             exit 1
           fi
 
@@ -157,23 +157,23 @@ jobs:
         run: |
           if [ "${{ matrix.component }}" == "cosmic-greeter" ]; then
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get infos for ${{ matrix.component }}-daemon package"
-            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }}-daemon package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           else
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           fi
 
@@ -241,10 +241,10 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos for ${{ matrix.app }} package"
-          dpkg --info debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
+          dpkg --info debian/artifacts/${{ matrix.app }}_${VERSION}_amd64.deb
           echo "::endgroup::"
           echo "::group::Get contents for ${{ matrix.app }} package"
-          dpkg --contents debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
+          dpkg --contents debian/artifacts/${{ matrix.app }}_${VERSION}_amd64.deb
           echo "::endgroup::"
 
       - name: Upload package
@@ -328,5 +328,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "changelog"
-          git commit -m "Update changelog for COSMIC components after release version ${{ env.VERSION }}"
+          git commit -m "Update changelog for COSMIC components after release version ${VERSION}"
           git push
