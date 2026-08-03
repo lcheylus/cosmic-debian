@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [cosmic-edit, cosmic-files, cosmic-player, cosmic-store, cosmic-term]
+        app: [cosmic-edit, cosmic-files, cosmic-monitor, cosmic-player, cosmic-store, cosmic-term]
 
     steps:
       - name: Checkout sources
