@@ -58,13 +58,13 @@ component needs `pop-icon-theme` package built from [icon-theme repository](http
 List of additional packages: "Depends" to install COSMIC components/apps not
 available as official Debian packages.
 
-| Package                                                        | Needed by              | Build on Debian testing | GitHub job for build |
-|----------------------------------------------------------------|------------------------|:-----------------------:|:--------------------:|
-| [adw-gtk3](https://github.com/pop-os/adw-gtk3)                 | cosmic-settings-daemon | ✅                      | ✅                   |
-| [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup<br>cosmic-store   | ✅                      | ✅                   |
-| [pop-fonts](https://github.com/pop-os/fonts)                   | cosmic-session         | ✅                      | ✅                   |
-| [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           | ✅                      | ✅                   |
-| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon | ✅                      | ✅                   |
+| Package                                                        | Needed by              |
+|----------------------------------------------------------------|------------------------|
+| [adw-gtk3](https://github.com/pop-os/adw-gtk3)                 | cosmic-settings-daemon |
+| [appstream-data-pop](https://github.com/pop-os/appstream-data) | cosmic-initial-setup<br>cosmic-store   |
+| [pop-fonts](https://github.com/pop-os/fonts)                   | cosmic-session         |
+| [pop-icon-theme](https://github.com/pop-os/icon-theme)         | cosmic-icons           |
+| [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | cosmic-settings-daemon |
 
 ---
 
