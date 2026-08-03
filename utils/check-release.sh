@@ -24,7 +24,6 @@ COSMIC_PKGS=(
 	"cosmic-idle"
 	"cosmic-initial-setup"
 	"cosmic-launcher"
-	"cosmic-monitor"
 	"cosmic-notifications"
 	"cosmic-osd"
 	"cosmic-panel"
@@ -37,6 +36,15 @@ COSMIC_PKGS=(
 	"cosmic-workspaces"
 	"pop-launcher"
 	"xdg-desktop-portal-cosmic")
+
+# COSMIC applications
+COSMIC_APPS=(
+	"cosmic-edit"
+	"cosmic-files"
+	"cosmic-monitor"
+	"cosmic-player"
+	"cosmic-store"
+	"cosmic-term")
 
 # Read GitHub Token from secrets.txt file
 GH_TOKEN=''
@@ -92,9 +100,19 @@ check_artifacts()
 
 	# Sort packages => list
 	packages=($(printf "%s\n" "${tmp_pkgs[@]}" | sort))
-	echo "List of artifacts: ${packages[@]}"
+	printf "List of artifacts: %s\n" "${packages[*]}"
 
 	for cosmic_pkg in "${COSMIC_PKGS[@]}"; do
+		echo -n "- ${cosmic_pkg}: "
+		if if_present packages "${cosmic_pkg}"; then
+			echo "found"
+		else
+			echo "NOT FOUND"
+			status=1
+		fi
+	done
+
+	for cosmic_pkg in "${COSMIC_APPS[@]}"; do
 		echo -n "- ${cosmic_pkg}: "
 		if if_present packages "${cosmic_pkg}"; then
 			echo "found"
