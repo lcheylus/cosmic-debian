@@ -122,6 +122,11 @@ jobs:
             if grep -q "cosmic-osd" Cargo.toml; then
               sed -i '/cosmic-randr,/d' debian/control
             fi
+            # Special case for cosmic-settings => rewrite debian/control file
+            # to replace network-manager-gnome by network-manager-applet
+            if grep -q -E "Source: cosmic-settings$" debian/control; then
+              sed -i 's/network-manager-gnome/network-manager-applet/' debian/control
+            fi
           before-build-hook: |
             # Special case for cosmic-initial-setup, cosmic-osd, cosmic-settings
             # and cosmic-session => rewrite debian/rules file to remove vendor
