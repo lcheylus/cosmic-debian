@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   valid-version:
+    name: Validate tag for version
     runs-on: ubuntu-latest
     steps:
       - name: Validate version
@@ -299,9 +300,8 @@ jobs:
     name: Commit updated changelog
     needs: release
     runs-on: ubuntu-latest
-    permissions:  # Allow to commit file
-      contents: write
-
+    permissions:
+      contents: write  # Allow to commit file
     steps:
       - name: Checkout changelog files
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
@@ -329,4 +329,5 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "changelog"
           git commit -m "Update changelog for COSMIC components after release version ${VERSION}"
-          git push
+          # Need to push on main branch, repo is in detached state for current tag
+          git push origin HEAD:main
