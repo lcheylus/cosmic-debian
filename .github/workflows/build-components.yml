@@ -97,7 +97,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: devscripts dpkg-dev  # needed for dch and dpkg-parsechangelog tools
+          extra-build-deps: devscripts dpkg-dev libdistro-info-perl  # needed for dch and dpkg-parsechangelog tools
           setup-hook: |
             # TODO: merge in 'before-build-hook'
             # Replace build target in debian/rules files + no vendoring
@@ -117,18 +117,26 @@ jobs:
             if grep "name" Cargo.toml | grep -q -E "cosmic-initial-setup|cosmic-osd|cosmic-session"; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
-            if [ "${{ matrix.component }}" = "cosmic-settings" ]]; then
+            if [ "${{ matrix.component }}" = "cosmic-settings" ]; then
               sed -i '/override_dh_auto_clean/,+2d' debian/rules
             fi
             echo "### debian/rules file"
             cat debian/rules
+            echo
 
             # TODO: Commit debian/changelog after release to keep changes
             echo "::group::Update changelog"
-            if [ "$(dpkg-parsechangelog --show-field Version)" != "${{ env.VERSION }}" ]; then
-              DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v ${{ env.VERSION }}  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
+            # Check version env.version > current version
+            current_version=$(dpkg-parsechangelog --show-field Version)
+            printf "current_version = %s\n" "${current_version}"
+            if [ "${current_version}" != "${{ env.VERSION }}" ] && [ "$(printf '%s\n%s\n' "${current_version}" "${{ env.VERSION }}" | sort -V | head -n1)" = "${current_version}" ]; then
+              echo "new version = ${{ env.VERSION }}"
+              DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v "${{ env.VERSION }}"  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
+            else
+              echo "No need to update changelog for version ${{ env.VERSION }}"
             fi
-            cat debian/changelog
+            # Dump content without trailing newlines
+            printf '%s' "$(cat debian/changelog)"
             echo "::endgroup::"
 
           buildpackage-opts: --build=binary --no-sign
