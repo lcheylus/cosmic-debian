@@ -87,26 +87,41 @@ if_present()
 }
 
 # Check artifacts against list of COSMIC components
-# Input = JSON output from GH API to get artifacts
+# Inputs:
+# - bool (0 or 1): if 0 check artifacts, if 1 check assets for release
+# - JSON output from GH API to get artifacts
 check_artifacts()
 {
 	tmp_pkgs=()
 	status=0
 
-	while IFS= read -r item; do
-		name=$(jq -r '.name' <<< "$item")
-		case $name in
-		# filename as cosmic-comp_1.4.0_amd64.deb
-		*.deb)
-			tmp_pkgs+=("${name%%_*}")
-			;;
-		*) ;;
-		esac
-	done < <(jq -c '.artifacts[]' <<< "$1")
+	if [ "$1" -eq 0 ]; then
+		while IFS= read -r item; do
+			name=$(jq -r '.name' <<< "$item")
+			case $name in
+			# filename as cosmic-comp_1.4.0_amd64.deb
+			*.deb)
+				tmp_pkgs+=("${name%%_*}")
+				;;
+			*) ;;
+			esac
+		done < <(jq -c '.artifacts[]' <<< "$2")
+	else
+		while IFS= read -r item; do
+			name=$(jq -r '.name' <<< "$item")
+			case $name in
+			# filename as cosmic-comp_1.4.0_amd64.deb
+			*.deb)
+				tmp_pkgs+=("${name%%_*}")
+				;;
+			*) ;;
+			esac
+		done < <(jq -c '.assets[]' <<< "$2")
+	fi
 
 	# Sort packages => list
 	packages=($(printf "%s\n" "${tmp_pkgs[@]}" | sort))
-	printf "List of artifacts: %s\n" "${packages[*]}"
+	printf "[*] List of artifacts: %s\n" "${packages[*]}"
 
 	for cosmic_pkg in "${COSMIC_PKGS[@]}"; do
 		echo -n "- ${cosmic_pkg}: "
@@ -133,11 +148,12 @@ check_artifacts()
 
 usage()
 {
-	echo "Usage: $0 [-h] [-d] -j job_id"
+	echo "Usage: $0 [-h] [-d] [-j job_id]"
 	echo "  -h        Show this help"
 	echo "  -j        job ID for GitHub workflow run"
 	echo
 	echo "Shell script to check a COSMIC release: every component must be present as GH artifact."
+	echo "If job_id is not defined, check the latest release."
 }
 
 while getopts ":hj:" opt; do
@@ -169,28 +185,58 @@ while getopts ":hj:" opt; do
 	esac
 done
 
-if [[ ! -n "${job_id:-}" ]]; then
-	echo "ERROR: job ID is not defined"
-	exit 1
-fi
-
 read_gh_token
 
-# Check if job ID exists
-status=$(curl -sL -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}" | jq -r '.status')
+if [[ ! -n "${job_id:-}" ]]; then
+	echo "Check COSMIC artifacts for the latest release"
 
-if [ "${status}" = "completed" ]; then
+	# Get response with Status code
 	response=$(
-		curl -sL -H "Accept: application/vnd.github+json" \
+		curl -sL -w '__STATUS__%{http_code}' \
+			-H "Accept: application/vnd.github+json" \
 			-H "Authorization: Bearer ${GH_TOKEN}" \
 			-H "X-GitHub-Api-Version: 2026-03-10" \
-			https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts?per_page=200
+			https://api.github.com/repos/lcheylus/cosmic-debian/releases/latest
 	)
-	# echo "$response"
-else
-	echo "ERROR: unable to get artifacts for job ID ${job_id} (Status: ${status})"
-	exit 1
-fi
+	status="${response##*__STATUS__}"
+	body="${response%__STATUS__*}"
 
-echo "Check COSMIC artifacts for job ID ${job_id}"
-check_artifacts "${response}"
+	# echo "$body"
+
+	if [ "${status}" != "200" ]; then
+		echo "ERROR: no latest release (Status: ${status})"
+	else
+		tag=$(echo "${body}" | jq -r '.tag_name')
+		if [[ $tag =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+			echo "[*] Description: $(echo "${body}" | jq -r '.name')"
+			echo "[*] Version: ${tag}"
+			check_artifacts 1 "${body}"
+		else
+			echo "ERROR: invalid tag '${tag}' for latest release"
+			exit 1
+		fi
+	fi
+
+else
+	# Check if job ID exists
+	status=$(curl -sL -H "Accept: application/vnd.github+json" \
+		-H "Authorization: Bearer ${GH_TOKEN}" \
+		-H "X-GitHub-Api-Version: 2026-03-10" \
+		https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}" | jq -r '.status')
+
+	if [ "${status}" = "completed" ]; then
+		response=$(
+			curl -sL -H "Accept: application/vnd.github+json" \
+				-H "Authorization: Bearer ${GH_TOKEN}" \
+				-H "X-GitHub-Api-Version: 2026-03-10" \
+				https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts?per_page=200
+		)
+		# echo "$response"
+	else
+		echo "ERROR: unable to get artifacts for job ID ${job_id} (Status: ${status})"
+		exit 1
+	fi
+
+	echo "Check COSMIC artifacts for job ID ${job_id}"
+	check_artifacts 0 "${response}"
+fi
