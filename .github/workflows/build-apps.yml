@@ -22,8 +22,8 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
-          repository: 'pop-os/${{ matrix.app }}'
-          ref: 'epoch-${{ env.VERSION }}'
+          repository: pop-os/${{ matrix.app }}
+          ref: epoch-${{ env.VERSION }}
           persist-credentials: false
 
       - name: Build package
@@ -47,10 +47,10 @@ jobs:
       - name: Get infos/contents for package
         run: |
           echo "::group::Get infos for ${{ matrix.app }} package"
-          dpkg --info debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
+          dpkg --info debian/artifacts/${{ matrix.app }}_${VERSION}_amd64.deb
           echo "::endgroup::"
           echo "::group::Get contents for ${{ matrix.app }} package"
-          dpkg --contents debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
+          dpkg --contents debian/artifacts/${{ matrix.app }}_${VERSION}_amd64.deb
           echo "::endgroup::"
 
       - name: Upload package
