@@ -78,3 +78,4 @@ available as official Debian packages.
 - [x] Add GH workflow to build Debian packages for all COSMIC component
 - [x] Release Debian packages from official COSMIC release/tag for COSMIC apps and components
 - [ ] Add shell script to download and install packages for a COSMIC release
+- [ ] Publish releases in a Debian repository on GitHub pages
