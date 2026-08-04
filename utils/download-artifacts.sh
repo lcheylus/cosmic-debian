@@ -16,7 +16,8 @@ download=0
 # Read GitHub Token from secrets.txt file
 GH_TOKEN=''
 
-read_gh_token() {
+read_gh_token()
+{
 	if [[ ! -f "utils/secrets.txt" ]]; then
 		echo "secrets.txt file not found"
 		exit 1
@@ -36,7 +37,8 @@ read_gh_token() {
 }
 
 # Convert size in bytes => human-readable format
-convert_size() {
+convert_size()
+{
 	awk -v b="$1" 'BEGIN {
 	    gb = 1024*1024*1024
 	    mb = 1024*1024
@@ -56,22 +58,27 @@ convert_size() {
 
 # Print infos about artifacts
 # Input = JSON output from GH API to get artifacts
-print_artifacts() {
+print_artifacts()
+{
 	jq -c '.artifacts[]' <<< "$1" |
 		while IFS= read -r item; do
 			name=$(jq -r '.name' <<< "$item")
 			size=$(jq -r '.size_in_bytes' <<< "$item")
 			expired=$(jq -r '.expired' <<< "$item")
 
-			echo "- $name"
-			echo "  * size: $(convert_size "${size}")"
-			echo "  * expired: ${expired}"
+			# Filter entries for .deb files
+			if [[ "$name" =~ \.deb$ ]]; then
+				echo "- $name"
+				echo "  * size: $(convert_size "${size}")"
+				echo "  * expired: ${expired}"
+			fi
 		done
 }
 
 # Download artifacts
 # Input = JSON output from GH API to get artifacts
-download_artifacts() {
+download_artifacts()
+{
 	jq -c '.artifacts[]' <<< "$1" |
 		while IFS= read -r item; do
 			name=$(jq -r '.name' <<< "$item")
@@ -79,21 +86,25 @@ download_artifacts() {
 			size=$(jq -r '.size_in_bytes' <<< "$item")
 			expired=$(jq -r '.expired' <<< "$item")
 
-			if [ "$expired" == "true" ]; then
-				echo "- Status expired for ${name}"
-			else
-				echo "- Download ${name} - Size = $(convert_size "${size}")"
-				curl -L --progress-bar \
-					-H "Accept: application/vnd.github+json" \
-					-H "Authorization: Bearer ${GH_TOKEN}" \
-					-H "X-GitHub-Api-Version: 2026-03-10" \
-					https://api.github.com/repos/lcheylus/cosmic-debian/actions/artifacts/"${a_id}"/zip \
-					-o "${tmp_dir}/${name}"
+			# Filter entries for .deb files
+			if [[ "$name" =~ \.deb$ ]]; then
+				if [ "$expired" == "true" ]; then
+					echo "- Status expired for ${name}"
+				else
+					echo "- Download ${name} - Size = $(convert_size "${size}")"
+					curl -L --progress-bar \
+						-H "Accept: application/vnd.github+json" \
+						-H "Authorization: Bearer ${GH_TOKEN}" \
+						-H "X-GitHub-Api-Version: 2026-03-10" \
+						https://api.github.com/repos/lcheylus/cosmic-debian/actions/artifacts/"${a_id}"/zip \
+						-o "${tmp_dir}/${name}"
+				fi
 			fi
 		done
 }
 
-usage() {
+usage()
+{
 	echo "Usage: $0 [-h] [-d] -j job_id"
 	echo "  -h        Show this help"
 	echo "  -d        Download artifacts"
@@ -142,14 +153,17 @@ fi
 read_gh_token
 
 # Check if job ID exists
-status=$(curl -sL -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}" | jq -r '.status')
+status=$(curl -sL -H "Accept: application/vnd.github+json" \
+	-H "Authorization: Bearer ${GH_TOKEN}" \
+	-H "X-GitHub-Api-Version: 2026-03-10" \
+	https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}" | jq -r '.status')
 
 if [ "${status}" = "completed" ]; then
 	json=$(
 		curl -sL -H "Accept: application/vnd.github+json" \
 			-H "Authorization: Bearer ${GH_TOKEN}" \
 			-H "X-GitHub-Api-Version: 2026-03-10" \
-			https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts
+			https://api.github.com/repos/lcheylus/cosmic-debian/actions/runs/"${job_id}"/artifacts?per_page=200
 	)
 	# echo "$json"
 else
