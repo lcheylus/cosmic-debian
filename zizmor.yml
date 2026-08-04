@@ -5,3 +5,4 @@ rules:
   superfluous-actions:
     ignore:
       - release-cosmic.yml
+      - release-depends.yml
