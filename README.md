@@ -73,10 +73,8 @@ available as official Debian packages.
 - [x] Build COSMIC components with Rust on local Debian testing
 - [x] Tests COSMIC DE on local Debian testing
 - [x] Add GH workflow to build additional packages
-- [ ] Release additional packages
-- [x] Add GH workflow to build Debian packages for each COSMIC apps
-- [ ] Release Debian packages from official COSMIC release/tag for COSMIC apps
-- [x] Add GH workflow to build Debian packages for each COSMIC component
-- [ ] Release Debian packages from official COSMIC release/tag for COSMIC components
-- [ ] Add shell script to download and install packages for a release
-- [ ] Add shell script to download and install packages for COSMIC apps
+- [x] Release additional packages
+- [x] Add GH workflow to build Debian packages for all COSMIC apps
+- [x] Add GH workflow to build Debian packages for all COSMIC component
+- [x] Release Debian packages from official COSMIC release/tag for COSMIC apps and components
+- [ ] Add shell script to download and install packages for a COSMIC release
