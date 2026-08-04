@@ -114,14 +114,17 @@ jobs:
             exit 1
           fi
 
+      - name: Generate SHA256SUMS file
+        run: find . -maxdepth 1 -type f -name '*.deb' -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+
       - name: Get version for packages
         id: version
         run: |
-          echo "adw-gtk3=$(ls adw-gtk3*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
-          echo "appstream-data=$(ls appstream-data-pop_*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
-          echo "pop-fonts=$(ls pop-fonts*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
-          echo "pop-icon=$(ls pop-icon*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
-          echo "pop-sound=$(ls pop-sound*.deb | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "adw-gtk3=$(find . -type f -name 'adw-gtk3*.deb' | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "appstream-data=$(find . -type f -name 'appstream-data-pop_*.deb' | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-fonts=$(find . -type f -name 'pop-fonts*.deb' | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-icon=$(find . -type f -name 'pop-icon*.deb' | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
+          echo "pop-sound=$(find . -type f -name 'pop-sound*.deb' | cut -d"_" -f2)" >> "$GITHUB_OUTPUT"
 
           echo "Contents of GITHUB_OUTPUT:"
           cat "$GITHUB_OUTPUT"
@@ -134,7 +137,9 @@ jobs:
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228  #v3.0.2
         with:
           draft: true
-          files: "*.deb"
+          files: |
+            SHA256SUMS
+            *.deb
           fail_on_unmatched_files: true
           make_latest: false
           name: "COSMIC depends - ${{ steps.date.outputs.value }}"
