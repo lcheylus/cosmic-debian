@@ -1,3 +1,9 @@
+cosmic-app-library (1.4.0) testing; urgency=medium
+
+  * new version for upstream release COSMIC epoch-1.4.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Tue, 04 Aug 2026 14:18:07 +0000
+
 cosmic-app-library (1.0.12) noble; urgency=medium
 
   * Update debian changelog

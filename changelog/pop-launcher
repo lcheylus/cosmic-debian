@@ -1,3 +1,9 @@
+pop-launcher (1.4.0) testing; urgency=medium
+
+  * new version for upstream release COSMIC epoch-1.4.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Tue, 04 Aug 2026 14:14:26 +0000
+
 pop-launcher (1.2.6) jammy; urgency=medium
 
   * Update all cargo dependencies as of 2025-09-25

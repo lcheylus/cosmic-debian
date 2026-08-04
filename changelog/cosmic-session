@@ -1,3 +1,9 @@
+cosmic-session (1.4.0) testing; urgency=medium
+
+  * new version for upstream release COSMIC epoch-1.4.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Tue, 04 Aug 2026 14:19:43 +0000
+
 cosmic-session (1.0.0) noble; urgency=medium
 
   * Initial release
