@@ -47,8 +47,8 @@ jobs:
         if: ${{ matrix.component != 'cosmic-workspaces' && matrix.component != 'pop-launcher' }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
-          repository: 'pop-os/${{ matrix.component }}'
-          ref: 'epoch-${{ env.VERSION }}'
+          repository: pop-os/${{ matrix.component }}
+          ref: epoch-${{ env.VERSION }}
           persist-credentials: false
 
       # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
@@ -56,8 +56,8 @@ jobs:
         if: ${{ matrix.component == 'cosmic-workspaces' }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
-          repository: 'pop-os/cosmic-workspaces-epoch'
-          ref: 'epoch-${{ env.VERSION }}'
+          repository: pop-os/cosmic-workspaces-epoch
+          ref: epoch-${{ env.VERSION }}
           persist-credentials: false
 
       # Special case for pop-launcher repository (repo = pop-os/launcher)
@@ -65,8 +65,8 @@ jobs:
         if: ${{ matrix.component == 'pop-launcher' }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
-          repository: 'pop-os/launcher'
-          ref: 'epoch-${{ env.VERSION }}'
+          repository: pop-os/launcher
+          ref: epoch-${{ env.VERSION }}
           persist-credentials: false
 
       - name: Checkout changelog for ${{ matrix.component }}
@@ -149,23 +149,23 @@ jobs:
         run: |
           if [ "${{ matrix.component }}" == "cosmic-greeter" ]; then
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get infos for ${{ matrix.component }}-daemon package"
-            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}-daemon_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }}-daemon package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}-daemon_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           else
             echo "::group::Get infos for ${{ matrix.component }} package"
-            dpkg --info debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --info debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
             echo "::group::Get contents for ${{ matrix.component }} package"
-            dpkg --contents debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
+            dpkg --contents debian/artifacts/${{ matrix.component }}_${VERSION}_${{ matrix.arch }}.deb
             echo "::endgroup::"
           fi
 
