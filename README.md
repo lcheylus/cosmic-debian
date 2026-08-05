@@ -1,7 +1,7 @@
-# Releases of COSMIC Desktop Environment for Debian testing/forky distribution
+# COSMIC DE for Debian testing distribution
 
 This repository contains workflows to build
-[COSMIC](https://system76.com/cosmic) desktop environment packages for Debian
+[COSMIC](https://system76.com/cosmic) Desktop Environment packages for Debian
 Linux distribution (current `testing` version `forky/sid`).
 
 Main GitHub repository of COSMIC DE => https://github.com/pop-os/cosmic-epoch/
