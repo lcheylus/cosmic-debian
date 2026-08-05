@@ -1,12 +1,22 @@
-# WIP - COSMIC DE packages for Debian distribution
+# Releases of COSMIC Desktop Environment for Debian testing/forky distribution
 
-**Work in Progress**
+This repository contains workflows to build
+[COSMIC](https://system76.com/cosmic) desktop environment packages for Debian
+Linux distribution (current `testing` version `forky/sid`).
 
-This repository contains utils and workflows to build
-[COSMIC](https://system76.com/cosmic) desktop environment and Wayland compositor
-packages for Debian Linux distribution (current `testing` version `forky/sid`).
+Main GitHub repository of COSMIC DE => https://github.com/pop-os/cosmic-epoch/
 
-- Main GitHub repository of COSMIC DE => https://github.com/pop-os/cosmic-epoch/
+---
+
+## Installation
+
+> [!IMPORTANT]
+Backup your system before installing COSMIC using this repository. Or install it
+on a disposable Debian testing installation used for conducting tests.
+
+> [!CAUTION]
+The `install.sh` script must be executed using `sudo` to allow installation of
+Debian packages.
 
 ---
 
