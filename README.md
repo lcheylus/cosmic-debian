@@ -17,6 +17,23 @@ Main GitHub repository of COSMIC DE https://github.com/pop-os/cosmic-epoch/
 Backup your system before installing COSMIC using this repository. Or install it
 on a disposable Debian testing installation used for conducting tests.
 
+By default, a display manager (LightDM, GDM, SDDM...) is configured and invoked
+to start an X11 or Wayland session. To disable it and log-in in console using
+your username and password, run the commands below.
+
+```sh
+sudo systemctl set-default multi-user.target
+```
+
+Reboot again and Debian boots to console mode.
+
+**Note** If you want to undo this change and get your Debian system to boot to
+the default graphical mode use the terminal command below.
+
+```sh
+sudo systemctl set-default graphical.target
+```
+
 > [!CAUTION]
 The `install.sh` script must be executed using `sudo` to allow installation of
 Debian packages.
