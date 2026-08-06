@@ -68,6 +68,14 @@ are removed after install).
 sudo ./install.sh
 ```
 
+**Start COSMIC DE**
+
+From your console, run command to start COSMIC DE
+
+```sh
+$ start-cosmic
+```
+
 ---
 
 ## Components of COSMIC Desktop
