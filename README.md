@@ -136,6 +136,12 @@ available as official Debian packages.
 
 ---
 
+## How to publish a new Release
+
+**TODO**
+
+---
+
 ## TODO
 
 - [x] Build COSMIC components with Rust on local Debian testing
