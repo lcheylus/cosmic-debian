@@ -38,7 +38,7 @@ sudo systemctl set-default graphical.target
 The `install.sh` script must be executed using `sudo` to allow installation of
 Debian packages.
 
-Download `install.sh` script shell
+**Download `install.sh` script shell**
 
 ```sh
 wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
@@ -62,7 +62,7 @@ use to set options:
 - `KEEP`: keep downloaded `.deb` files after installation (0 by default => files
 are removed after install).
 
-Run `install.sh` script to install COSMIC DE:
+**Run `install.sh` script to install COSMIC DE**
 
 ```sh
 sudo ./install.sh
