@@ -34,11 +34,7 @@ the default graphical mode use the terminal command below.
 sudo systemctl set-default graphical.target
 ```
 
-> [!CAUTION]
-The `install.sh` script must be executed using `sudo` to allow installation of
-Debian packages.
-
-**Download `install.sh` script shell**
+### Download `install.sh` script shell
 
 ```sh
 wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
@@ -62,13 +58,17 @@ use to set options:
 - `KEEP`: keep downloaded `.deb` files after installation (0 by default => files
 are removed after install).
 
-**Run `install.sh` script to install COSMIC DE**
+### Run `install.sh` script to install COSMIC DE
+
+> [!CAUTION]
+The `install.sh` script must be executed using `sudo` to allow installation of
+Debian packages.
 
 ```sh
 sudo ./install.sh
 ```
 
-**Start COSMIC DE**
+### Start COSMIC DE
 
 From your console, run command to start COSMIC DE
 
@@ -76,7 +76,7 @@ From your console, run command to start COSMIC DE
 $ start-cosmic
 ```
 
-**Update previous COSMIC installation**
+### Update previous COSMIC installation
 
 The `install.sh` script allows also to update a previous COSMIC installation to
 the latest release published in this repository. During its execution, it
