@@ -76,12 +76,19 @@ From your console, run command to start COSMIC DE
 $ start-cosmic
 ```
 
+**Update previous COSMIC installation**
+
+The `install.sh` script allows also to update a previous COSMIC installation to
+the latest release published in this repository. During its execution, it
+downloads the latest available version of Debian packages and install them via
+`dpkg` command.
+
 ---
 
 ## Components of COSMIC Desktop
 
-Each component has a `debian` directory in its tree with files to build the
-corresponding Debian package.
+Each component has a `debian` directory in its sources tree with files to build
+the corresponding Debian package.
 
 List of all components necessary to install COSMIC Desktop Environment:
 
