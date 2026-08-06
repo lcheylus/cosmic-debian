@@ -38,6 +38,36 @@ sudo systemctl set-default graphical.target
 The `install.sh` script must be executed using `sudo` to allow installation of
 Debian packages.
 
+Download `install.sh` script shell
+
+```sh
+wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
+```
+
+The `install.sh` script shell allows to install all components and apps for
+COSMIC DE + addtional packages not available in official APT Debian repository.
+
+- download every `.deb` file for COSMIC components and apps for the latest
+release built in this repository.
+- checks downloaded COSMIC `.deb` files with SHA256 checksums
+- download every `.deb` file for additional packages from this repository.
+- checks these downloaded `.deb` files with SHA256 checksums
+- install with `apt install` Debian packages needed by COSMIC DE
+- install additional packages with `dpkg -i` command.
+- install packages for all COSMIC components and apps with `dpkg -i` command.
+
+The `install.sh` script has 2 optional integer variables (0 | 1) that you could
+use to set options:
+- `INSTALL_APPS`: install COSMIC applications (1 by default).
+- `KEEP`: keep downloaded `.deb` files after installation (0 by default => files
+are removed after install).
+
+Run `install.sh` script to install COSMIC DE:
+
+```sh
+sudo ./install.sh
+```
+
 ---
 
 ## Components of COSMIC Desktop
