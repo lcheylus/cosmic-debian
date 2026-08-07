@@ -2,12 +2,13 @@
 
 [![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&style=for-the-badge)](https://github.com/pop-os/cosmic-epoch/)
 
-This repository provides Debian Linux packages for
+This repository provides Debian Linux packages for the full
 [COSMIC](https://system76.com/cosmic) Desktop Environment. Each release
 corresponds to an official COSMIC Epoch release.
 
-These packages are built via GitHub Actions on Debian testing distribution
-(current version `forky/sid`).
+These packages are built via GitHub Actions on Debian **testing** distribution
+(current version `forky/sid`). They probably also work on unstable distribution
+(**not tested**).
 
 Main GitHub repository of COSMIC DE https://github.com/pop-os/cosmic-epoch/
 
@@ -162,3 +163,4 @@ available as official Debian packages.
 - [x] Release Debian packages from official COSMIC release/tag for COSMIC apps and components
 - [x] Add shell script to download and install packages for a COSMIC release
 - [ ] Publish releases in a Debian repository on GitHub pages
+- [ ] Add a template to create issues
