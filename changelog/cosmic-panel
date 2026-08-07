@@ -1,9 +1,3 @@
-cosmic-panel (1.5.0) testing; urgency=medium
-
-  * new version for upstream release COSMIC epoch-1.5.0
-
- -- Laurent Cheylus <foxy@free.fr>  Tue, 04 Aug 2026 18:38:42 +0000
-
 cosmic-panel (1.4.0) testing; urgency=medium
 
   * new version for upstream release COSMIC epoch-1.4.0
