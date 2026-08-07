@@ -19,6 +19,7 @@ jobs:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: 6709cbe37e469a749fd3e179dd03c0db
           filename: cosmic-badge.json
+          forceUpdate: true
           label: COSMIC version
           message: Epoch 1.5.0
           color: orange
