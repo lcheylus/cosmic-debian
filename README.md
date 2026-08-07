@@ -1,6 +1,6 @@
 # COSMIC DE for Debian testing distribution
 
-![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&style=for-the-badge)
+[![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&style=for-the-badge)](https://github.com/pop-os/cosmic-epoch/)
 
 This repository provides Debian Linux packages for
 [COSMIC](https://system76.com/cosmic) Desktop Environment. Each release
