@@ -40,10 +40,8 @@ jobs:
           - cosmic-app-library
           - cosmic-bg
           - cosmic-comp
-          - cosmic-greeter
           - cosmic-icons
           - cosmic-idle
-          - cosmic-initial-setup
           - cosmic-launcher
           - cosmic-notifications
           - cosmic-osd
@@ -58,8 +56,14 @@ jobs:
           - xdg-desktop-portal-cosmic
         arch:
           - amd64
+        lfs:
+          - false
         include:
-          - {component: cosmic-wallpapers, arch: all}
+          # Special case to use LFS for these components
+          - {component: cosmic-greeter, arch: amd64, lfs: true }
+          - {component: cosmic-initial-setup, arch: amd64, lfs: true }
+          # arch != amd64
+          - {component: cosmic-wallpapers, arch: all, lfs: true}
 
     steps:
       - name: Checkout sources
@@ -68,6 +72,7 @@ jobs:
         with:
           repository: pop-os/${{ matrix.component }}
           ref: epoch-${{ env.VERSION }}
+          lfs: ${{ matrix.lfs }}
           persist-credentials: false
 
       # Special case for cosmic-workspaces repository (repo = pop-os/cosmic-workspaces-epoch)
