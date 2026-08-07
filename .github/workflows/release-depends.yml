@@ -134,6 +134,7 @@ jobs:
         run: echo "value=$(date +%F)" >> "$GITHUB_OUTPUT"
 
       - name: Publish release
+        id: publish
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228  #v3.0.2
         with:
           draft: true
@@ -151,3 +152,9 @@ jobs:
             - [pop-fonts](https://github.com/pop-os/fonts): fonts for System76/COSMIC (version ${{ steps.version.outputs.pop-fonts }})
             - [pop-icon-theme](https://github.com/pop-os/icon-theme): standard icons for Pop!_OS (version ${{ steps.version.outputs.pop-icon }})
             - [pop-sound-theme](https://github.com/pop-os/gtk-theme/): sound themes for Pop!_OS (version ${{ steps.version.outputs.pop-sound }})
+
+      - name: Generate summary
+        run: |
+          echo "## Results for release of COSMIC depends" >> $GITHUB_STEP_SUMMARY
+          echo "Release published as draft - needs to publish it with tag = depends-$(date +%F | sed 's/-//g')" >> $GITHUB_STEP_SUMMARY
+          echo "URL for release = ${{ steps.publish.outputs.url }}" >> $GITHUB_STEP_SUMMARY
