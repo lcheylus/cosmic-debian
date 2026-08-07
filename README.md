@@ -40,7 +40,9 @@ sudo systemctl set-default graphical.target
 ### Download `install.sh` script shell
 
 ```sh
-wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
+$ wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
+
+$ chmod +x install.sh
 ```
 
 The `install.sh` script shell allows to install all components and apps for
