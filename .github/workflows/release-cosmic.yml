@@ -346,3 +346,18 @@ jobs:
           git commit -m "Update changelog for COSMIC components after release version ${VERSION}"
           # Need to push on main branch, repo is in detached state for current tag
           git push origin HEAD:main
+
+  create-badge:
+    name: Update dynamic badge
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: schneegans/dynamic-badges-action@28b0fa8bdeb46170ac397105ece0c1fe58f68910  #v1.9.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 6709cbe37e469a749fd3e179dd03c0db
+          filename: cosmic-badge.json
+          forceUpdate: true
+          label: COSMIC version
+          message: Epoch ${{ env.VERSION }}
+          color: blue
