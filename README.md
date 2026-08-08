@@ -7,8 +7,8 @@ This repository provides Debian Linux packages for the full
 corresponds to an official COSMIC Epoch release.
 
 These packages are built via GitHub Actions on Debian **testing** distribution
-(current version `forky/sid`). They probably also work on unstable distribution
-(**not tested**).
+(current version `forky/sid`) for **amd64** architecture only. They probably
+also work on unstable distribution (**not tested**).
 
 Main GitHub repository of COSMIC DE https://github.com/pop-os/cosmic-epoch/
 
@@ -46,19 +46,19 @@ $ chmod +x install.sh
 ```
 
 The `install.sh` script shell allows to install all components and apps for
-COSMIC DE + addtional packages not available in official APT Debian repository.
+COSMIC DE + additional packages not available in official APT Debian repository:
 
-- download every `.deb` file for COSMIC components and apps for the latest
-release built in this repository.
+- download every `.deb` file for COSMIC components and apps from the latest
+release available in this repository
 - checks downloaded COSMIC `.deb` files with SHA256 checksums
-- download every `.deb` file for additional packages from this repository.
+- download every `.deb` file for additional packages from this repository
 - checks these downloaded `.deb` files with SHA256 checksums
-- install with `apt install` Debian packages needed by COSMIC DE
+- install Debian packages needed by COSMIC DE with `apt install`
 - install additional packages with `dpkg -i` command.
 - install packages for all COSMIC components and apps with `dpkg -i` command.
 
-The `install.sh` script has 2 optional integer variables (0 | 1) that you could
-use to set options:
+The `install.sh` script has 2 optional integer variables (value = 0 or 1) that
+you could use to set options:
 - `INSTALL_APPS`: install COSMIC applications (1 by default).
 - `KEEP`: keep downloaded `.deb` files after installation (0 by default => files
 are removed after install).
@@ -75,7 +75,7 @@ sudo ./install.sh
 
 ### Start COSMIC DE
 
-From your console, run command to start COSMIC DE
+From your console, run command to start COSMIC DE:
 
 ```sh
 $ start-cosmic
@@ -164,5 +164,5 @@ available as official Debian packages.
 - [x] Add GH workflow to build Debian packages for all COSMIC component
 - [x] Release Debian packages from official COSMIC release/tag for COSMIC apps and components
 - [x] Add shell script to download and install packages for a COSMIC release
+- [x] Add a template to create issues
 - [ ] Publish releases in a Debian repository on GitHub pages
-- [ ] Add a template to create issues
