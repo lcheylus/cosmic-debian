@@ -26,5 +26,5 @@ assignees: ''
 ## Platform informations
 
   - Debian distribution: testing or unstable
-  - Kernel version (`uname -mrs`):
-  - COSMIC version installed (`dpkg -l cosmic-session`):
+  - Kernel version (uname -mrs):
+  - COSMIC version installed (apt policy cosmic-session):
