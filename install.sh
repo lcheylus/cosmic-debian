@@ -15,7 +15,7 @@ INSTALL_APPS="${INSTALL_APPS:-1}"
 KEEP="${KEEP:-0}"
 
 # Git tag for "COSMIC depends" release
-DEPENDS_TAG="depends-20260804"
+DEPENDS_TAG="depends-20260808"
 
 # COSMIC applications
 APPS="cosmic-edit cosmic-files cosmic-monitor cosmic-player cosmic-store cosmic-term"
