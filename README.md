@@ -90,6 +90,30 @@ downloads the latest available version of Debian packages and install them via
 
 ---
 
+## Use COSMIC Greeter
+
+COSMIC Greeter, installed with the `cosmic-greeter` and `cosmic-greeter-daemon`
+packages, is the login manager of COSMIC DE.
+
+During the installation, it registers itself as the system display manager via
+`debconf` as other ones (GDM, LightDM...). If another DM is already registered,
+you get the standard "Default display manager" prompt to choose between them.
+
+You can switch to COSMIC Greeter later, via `sudo dpkg-reconfigure cosmic-greeter` command.
+
+If you configure your system to have a text console after boot (`systemctl
+get-default` returns `multi-user.target`), COSMIC Greeter is not started by
+default. To enable it:
+
+```sh
+$ sudo systemctl set-default graphical.target
+```
+
+Then reboot your system and COSMIC Greeter will start after boot, login with
+user/password and you COSMIC session starts.
+
+---
+
 ## Components of COSMIC Desktop
 
 Each component has a `debian` directory in its sources tree with files to build
