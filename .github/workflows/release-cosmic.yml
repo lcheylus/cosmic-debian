@@ -155,7 +155,7 @@ jobs:
             echo "::group::Update changelog"
             current_version=$(dpkg-parsechangelog --show-field Version)
             printf "current_version = %s\n" "${current_version}"
-            # Check version env.version > current version with 'sort -V'
+            # Check version env.version > current version with 'sort -V'
             if [ "${current_version}" != "${{ env.VERSION }}" ] && [ "$(printf '%s\n%s\n' "${current_version}" "${{ env.VERSION }}" | sort -V | head -n1)" = "${current_version}" ]; then
               echo "new version = ${{ env.VERSION }}"
               DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v "${{ env.VERSION }}"  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
