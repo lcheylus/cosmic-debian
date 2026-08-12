@@ -6,3 +6,6 @@ rules:
     ignore:
       - release-cosmic.yml
       - release-depends.yml
+  template-injection:
+    ignore:
+      - update-apt-repo.yml
