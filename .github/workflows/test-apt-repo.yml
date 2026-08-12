@@ -1,9 +1,14 @@
-# GH workflow to test creation of a Debian APT repository
-name: Publish COSMIC APT Repository
+# GH workflow to update Debian APT repository with deb files from
+# COSMIC latest release and COSMIC depends
+name: Update COSMIC APT Repository
 
 on: workflow_dispatch
 
-permissions: {}
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 # Prevents concurrent runs of the workflow
 concurrency:
@@ -11,23 +16,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  download-artifact:
-    name: Download COSMIC artifacts
+  upload-artifacts:
+    name: Upload COSMIC artifacts for APT repository
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     env:
       DEPENDS_TAG: depends-20260808  # Tag for release of COSMIC Depends
+      GH_TOKEN: ${{ github.token }}
 
     steps:
+      # Step mandatory to use 'gh release' command
       - name: Git checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  #v7.0.1
         with:
           persist-credentials: false
 
       - name: Download artifacts from latest release
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p packages
           gh release download --pattern '*.deb' --dir packages
@@ -43,11 +46,9 @@ jobs:
           fi
 
       - name: Download artifacts from depends release
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p depends
-          gh release download ${{ env.DEPENDS_TAG }} --pattern '*.deb' --dir depends
+          gh release download ${DEPENDS_TAG} --pattern '*.deb' --dir depends
 
       - name: Check downloaded artifacts from depends release
         run: |
@@ -57,3 +58,12 @@ jobs:
             echo "ERROR: Expected 7 .deb files, found $count"
             exit 1
           fi
+
+      - name: Create directory for artifacts
+        run: |
+          mkdir -p artifacts
+          cp -va packages/*.deb artifacts
+          cp -va depends/*.deb artifacts
+
+      - name: Setup Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
