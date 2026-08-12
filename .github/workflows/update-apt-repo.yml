@@ -4,6 +4,11 @@ name: Update COSMIC APT Repository
 
 on: workflow_dispatch
 
+env:
+  REPO_NAME: cosmic-debian
+  CODENAME: forky
+  COMPONENTS: main
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -72,13 +77,13 @@ jobs:
         id: create-apt-repo
         uses: morph027/apt-repo-action@016866b2950ae9d3d0245686bac6befe3788886e  #v3.7
         with:
-          repo-name: cosmic-debian
+          repo-name: ${{ env.REPO_NAME }}
           scan-dir: artifacts
           signing-key: ${{ secrets.SIGNING_KEY }}
           signing-key-passphrase: ${{ secrets.SIGNING_KEY_PASSPHRASE }}
-          codename: forky
+          codename: ${{ env.CODENAME }}
           suite: testing
-          components: main
+          components: ${{ env.COMPONENTS }}
           architectures: amd64
           origin: Debian APT Repository for COSMIC DE - https://github.com/lcheylus/cosmic-debian/
 
@@ -102,11 +107,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128  #v5.0.0
 
-      # - name: Adding summary
-      #   run: |
-      #     echo ':rocket:' >> $GITHUB_STEP_SUMMARY
-      #     echo '' >> $GITHUB_STEP_SUMMARY
-      #     echo '```bash' >> $GITHUB_STEP_SUMMARY
-      #     echo 'curl -sfLo /etc/apt.trusted.gpg.d/${{ needs.upload-artifacts.outputs.keyring }}.asc ${{ steps.deploy-pages.outputs.page_url }}gpg.key' >> $GITHUB_STEP_SUMMARY
-      #     echo 'echo "deb ${{ steps.deploy-pages.outputs.page_url }} ${{ env.CODENAME }} ${{ env.COMPONENTS }}" >/etc/apt/sources.list.d/${{ env.REPO_NAME }}.list' >> $GITHUB_STEP_SUMMARY
-      #     echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: Adding summary
+        run: |
+          echo ':rocket:' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo 'curl -sfLo /etc/apt.trusted.gpg.d/${{ needs.upload-artifacts.outputs.keyring }}.asc ${{ steps.deployment.outputs.page_url }}gpg.key' >> $GITHUB_STEP_SUMMARY
+          echo 'echo "deb ${{ steps.deployment.outputs.page_url }} ${{ env.CODENAME }} ${{ env.COMPONENTS }}" >/etc/apt/sources.list.d/${{ env.REPO_NAME }}.list' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
