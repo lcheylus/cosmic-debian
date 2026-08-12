@@ -75,6 +75,7 @@ jobs:
           repo-name: cosmic-debian
           scan-dir: artifacts
           signing-key: ${{ secrets.SIGNING_KEY }}
+          signing-key-passphrase: ${{ secrets.SIGNING_KEY_PASSPHRASE }}
           codename: forky
           suite: testing
           components: main
