@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      DEPENDS_TAG: depends-20260808  # Tag for release of COSMIC Depends
 
     steps:
       - name: Git checkout
@@ -30,12 +32,28 @@ jobs:
           mkdir -p packages
           gh release download --pattern '*.deb' --dir packages
 
-      - name: Check downloaded artifacts
+      - name: Check downloaded artifacts from latest release
         run: |
           ls -l packages/*.deb
           count=$(find packages -maxdepth 1 -type f -name '*.deb' | wc -l)
           # 22 artifacts for components + 6 apps
           if [ "$count" -ne  28 ]; then
             echo "ERROR: Expected 28 .deb files, found $count"
+            exit 1
+          fi
+
+      - name: Download artifacts from depends release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p depends
+          gh release download ${{ env.DEPENDS_TAG }} --pattern '*.deb' --dir depends
+
+      - name: Check downloaded artifacts from depends release
+        run: |
+          ls -l depends/*.deb
+          count=$(find depends -maxdepth 1 -type f -name '*.deb' | wc -l)
+          if [ "$count" -ne  7 ]; then
+            echo "ERROR: Expected 7 .deb files, found $count"
             exit 1
           fi
