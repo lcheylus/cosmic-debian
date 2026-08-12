@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   upload-artifacts:
-    name: Upload COSMIC artifacts for APT repository
+    name: Upload artifacts for APT repo
     runs-on: ubuntu-latest
     env:
       DEPENDS_TAG: depends-20260808  # Tag for release of COSMIC Depends
@@ -67,3 +67,22 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
+
+      - name: Create APT Repository
+        id: create-apt-repo
+        uses: morph027/apt-repo-action@016866b2950ae9d3d0245686bac6befe3788886e  #v3.7
+        with:
+          repo-name: cosmic-debian
+          scan-dir: artifacts
+          signing-key: ${{ secrets.SIGNING_KEY }}
+          codename: forky
+          suite: testing
+          components: main
+          architectures: amd64
+          origin: Debian APT Repository for COSMIC DE - https://github.com/lcheylus/cosmic-debian/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  #v5.0.0
+        with:
+          name: github-pages
+          path: ${{ steps.create-apt-repo.outputs.dir }}
