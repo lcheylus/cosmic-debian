@@ -1,0 +1,36 @@
+# GH workflow to test creation of a Debian APT repository
+name: Publish COSMIC APT Repository
+
+on: workflow_dispatch
+
+permissions: {}
+
+# Prevents concurrent runs of the workflow
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  download-artifact:
+    name: Download COSMIC artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Download artifacts from latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p packages
+          gh release download --pattern '*.deb' --dir packages
+
+      - name: Check downloaded artifacts
+        run: |
+          ls -l packages/*.deb
+          count=$(find packages -maxdepth 1 -type f -name '*.deb' | wc -l)
+          # 22 artifacts for components + 6 apps
+          if [ "$count" -ne  28 ]; then
+            echo "ERROR: Expected 28 .deb files, found $count"
+            exit 1
+          fi
