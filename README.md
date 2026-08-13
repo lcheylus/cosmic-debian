@@ -183,19 +183,6 @@ workflows and commit them
 Epoch release `epoch-a.b.c`
 - push tag via `git push --tags` command
 - the "Publish COSMIC release" will start automatically, build Debian packages
-and publish a new release.
-
----
-
-## TODO
-
-- [x] Build COSMIC components with Rust on local Debian testing
-- [x] Tests COSMIC DE on local Debian testing
-- [x] Add GH workflow to build additional packages
-- [x] Release additional packages
-- [x] Add GH workflow to build Debian packages for all COSMIC apps
-- [x] Add GH workflow to build Debian packages for all COSMIC component
-- [x] Release Debian packages from official COSMIC release/tag for COSMIC apps and components
-- [x] Add shell script to download and install packages for a COSMIC release
-- [x] Add a template to create issues
-- [ ] Publish releases in a Debian repository on GitHub pages
+and publish a new release
+- after the publication of a new release, update APT Repository by running
+manually the workflow "Update COSMIC APT repository".
