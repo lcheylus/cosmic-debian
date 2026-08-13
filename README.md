@@ -141,7 +141,7 @@ $ sudo systemctl set-default graphical.target
 ```
 
 Then reboot your system and COSMIC Greeter will start after boot, login with
-user/password and you COSMIC session starts.
+user/password and your COSMIC session starts.
 
 ---
 
