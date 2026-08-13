@@ -123,14 +123,15 @@ jobs:
           extra-build-deps: devscripts dpkg-dev libdistro-info-perl  # needed for dch and dpkg-parsechangelog tools
           setup-hook: |
             # Special case for cosmic-osd => rewrite debian/control file to remove
-            # unecessary Build-Depends on cosmic-randr
+            # unecessary "Depends" on cosmic-randr
             if grep -q "cosmic-osd" Cargo.toml; then
               sed -i '/cosmic-randr,/d' debian/control
             fi
             # Special case for cosmic-session => rewrite debian/control file to remove
-            # unecessary Build-Depends on cosmic-files
+            # unecessary "Depends" on cosmic-files and add it in "Recommends"
             if grep -q -E "Source: cosmic-session$" debian/control; then
               sed -i '/cosmic-files,/d' debian/control
+              sed -i '/cosmic-edit,/a\  cosmic-files,' debian/control
             fi
             # Special case for cosmic-settings => rewrite debian/control file
             # to replace network-manager-gnome by network-manager-applet
