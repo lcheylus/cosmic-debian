@@ -115,6 +115,6 @@ jobs:
           echo '### Commands to install COSMIC Debian APT Repository' >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo 'curl -sfLo /etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc ${{ steps.deployment.outputs.page_url }}gpg.key' >> $GITHUB_STEP_SUMMARY
-          echo 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc] ${{ steps.deployment.outputs.page_url }} ${{ env.CODENAME }} ${{ env.COMPONENTS }}" > /etc/apt/sources.list.d/${{ env.REPO_NAME }}.list' >> $GITHUB_STEP_SUMMARY
+          echo 'sudo curl -sfLo /etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc ${{ steps.deployment.outputs.page_url }}gpg.key' >> $GITHUB_STEP_SUMMARY
+          echo 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc] ${{ steps.deployment.outputs.page_url }} ${{ env.CODENAME }} ${{ env.COMPONENTS }}" | sudo tee /etc/apt/sources.list.d/${{ env.REPO_NAME }}.list' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
