@@ -37,7 +37,13 @@ the default graphical mode use the terminal command below.
 sudo systemctl set-default graphical.target
 ```
 
-### Download `install.sh` script shell
+2 methods are available to install the full COSMIC DE from this repository:
+  - [via an dedicated shell script](#shell-script-for-installation)
+  - [via a Debian APT Repository](#debian-apt-repository)
+
+### Shell script for installation
+
+**Download `install.sh` script shell**
 
 ```sh
 $ wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
@@ -63,7 +69,7 @@ you could use to set options:
 - `KEEP`: keep downloaded `.deb` files after installation (0 by default => files
 are removed after install).
 
-### Run `install.sh` script to install COSMIC DE
+**Run `install.sh` script to install COSMIC DE**
 
 > [!CAUTION]
 The `install.sh` script must be executed using `sudo` to allow installation of
@@ -72,6 +78,28 @@ Debian packages.
 ```sh
 sudo ./install.sh
 ```
+
+### Debian APT Repository
+
+An APT Repository is available via my [GitHub
+pages](https://lcheylus.github.io/cosmic-debian/) (the files and directories are
+not browsable). It contains Debian `.deb` files to install all the COSMIC
+components and applications + depends not available in official Debian APT
+repositories.
+
+Install this repository with the following commands:
+
+```bash
+$ sudo curl -sfLo /etc/apt/keyrings/cosmic-debian-keyring.asc https://lcheylus.github.io/cosmic-debian/gpg.key
+$ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/cosmic-debian-keyring.asc] https://lcheylus.github.io/cosmic-debian/ forky main" | sudo tee /etc/apt/sources.list.d/cosmic-debian.list
+```
+
+then update your local APT caches with `apt update` command.
+
+Install the full COSMIC DE (all components, apps and depends) with `apt install cosmic-session`.
+
+By default, COSMIC applications are installed with the full COSMIC DE. If you
+dont' want to install them, use the command `apt install --no-install-recommends cosmic-session`.
 
 ### Start COSMIC DE
 
@@ -87,6 +115,9 @@ The `install.sh` script allows also to update a previous COSMIC installation to
 the latest release published in this repository. During its execution, it
 downloads the latest available version of Debian packages and install them via
 `dpkg` command.
+
+If you use the APT Repository, proceed as usual with `apt update && apt upgrade`
+commands.
 
 ---
 
