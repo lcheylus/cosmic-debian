@@ -46,7 +46,7 @@ sudo systemctl set-default graphical.target
 **Download `install.sh` script shell**
 
 ```sh
-$ wget https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
+$ curl -O https://raw.githubusercontent.com/lcheylus/cosmic-debian/refs/heads/main/install.sh
 
 $ chmod +x install.sh
 ```
