@@ -1,9 +1,3 @@
-cosmic-settings (1.5.0) testing; urgency=medium
-
-  * new version for upstream release COSMIC epoch-1.5.0
-
- -- Laurent Cheylus <foxy@free.fr>  Fri, 07 Aug 2026 13:43:27 +0000
-
 cosmic-settings (1.4.0) testing; urgency=medium
 
   * new version for upstream release COSMIC epoch-1.4.0
