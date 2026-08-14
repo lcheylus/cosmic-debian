@@ -39,10 +39,10 @@ sudo systemctl set-default graphical.target
 ```
 
 2 methods are available to install the full COSMIC DE from this repository:
-  - [via an dedicated shell script](#shell-script-for-installation)
-  - [via a Debian APT Repository](#debian-apt-repository)
+  - [via an dedicated shell script](#1-shell-script-for-installation)
+  - [via a Debian APT Repository](#2-debian-apt-repository)
 
-### Shell script for installation
+### 1. Shell script for installation
 
 **Download `install.sh` script shell**
 
@@ -80,7 +80,7 @@ Debian packages.
 sudo ./install.sh
 ```
 
-### Debian APT Repository
+### 2. Debian APT Repository
 
 An APT Repository is available via my [GitHub
 pages](https://lcheylus.github.io/cosmic-debian/) (the files and directories are
