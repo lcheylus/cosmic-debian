@@ -15,7 +15,7 @@ Main GitHub repository of COSMIC DE https://github.com/pop-os/cosmic-epoch/
 
 ---
 
-## Installation
+## 🛠️ Installation
 
 > [!IMPORTANT]
 Backup your system before installing COSMIC using this repository. Or install it
