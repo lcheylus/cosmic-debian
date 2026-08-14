@@ -91,16 +91,19 @@ repositories.
 Install this repository with the following commands:
 
 ```bash
+# Add the repository signing key (ASCII format)
 $ sudo curl -sfLo /etc/apt/keyrings/cosmic-debian-keyring.asc https://lcheylus.github.io/cosmic-debian/gpg.key
+
+# Add the repository to sources (old format, one line)
 $ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/cosmic-debian-keyring.asc] https://lcheylus.github.io/cosmic-debian/ forky main" | sudo tee /etc/apt/sources.list.d/cosmic-debian.list
 ```
 
-then update your local APT caches with `apt update` command.
+then update your local APT caches with `sudo apt update` command.
 
-Install the full COSMIC DE (all components, apps and depends) with `apt install cosmic-session`.
+Install the full COSMIC DE (all components, apps and depends) with `sudo apt install cosmic-session`.
 
 By default, COSMIC applications are installed with the full COSMIC DE. If you
-dont' want to install them, use the command `apt install --no-install-recommends cosmic-session`.
+dont' want to install them, use the command `sudo apt install --no-install-recommends cosmic-session`.
 
 ### Start COSMIC DE
 
