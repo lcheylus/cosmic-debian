@@ -2,8 +2,9 @@
 
 [![Debian testing badge](https://img.shields.io/badge/Debian-testing-green?style=for-the-badge)](https://www.debian.org/devel/testing) ![APT Repository badge](https://img.shields.io/badge/APT-Repository-green?style=for-the-badge) [![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&style=for-the-badge)](https://github.com/pop-os/cosmic-epoch/)
 
-This repository provides Debian Linux packages for the full
-[COSMIC](https://system76.com/cosmic) Desktop Environment. Each release
+This repository provides the full **[COSMIC Desktop
+Environment](https://system76.com/cosmic)**, built from source as Debian
+packages for **Debian (forky) testing** Linux distribution. Each release
 corresponds to an official COSMIC Epoch release.
 
 These packages are built via GitHub Actions on Debian **testing** distribution
