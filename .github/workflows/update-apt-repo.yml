@@ -75,7 +75,7 @@ jobs:
 
       - name: Create APT Repository
         id: create-apt-repo
-        uses: morph027/apt-repo-action@016866b2950ae9d3d0245686bac6befe3788886e  #v3.7
+        uses: morph027/apt-repo-action@b6b977523e6a5e235075787489bb073c60b71eb4  # v3.8
         with:
           repo-name: ${{ env.REPO_NAME }}
           scan-dir: artifacts
