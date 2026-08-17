@@ -1,6 +1,6 @@
 # COSMIC DE for Debian testing distribution
 
-[![Debian testing badge](https://img.shields.io/badge/Debian-testing-green?logo=debian&style=for-the-badge)](https://www.debian.org/devel/testing) ![APT Repository badge](https://img.shields.io/badge/APT-Repository-green?style=for-the-badge) [![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&style=for-the-badge)](https://github.com/pop-os/cosmic-epoch/)
+[![Debian testing badge](https://img.shields.io/badge/Debian-testing-green?logo=debian&style=for-the-badge)](https://www.debian.org/devel/testing) ![APT Repository badge](https://img.shields.io/badge/APT-Repository-green?style=for-the-badge) [![Badge for COSMIC release version](https://shields.io/endpoint?url=https://gist.githubusercontent.com/lcheylus/6709cbe37e469a749fd3e179dd03c0db/raw/cosmic-badge.json&logo=system76&style=for-the-badge)](https://github.com/pop-os/cosmic-epoch/)
 
 This repository provides the full **[COSMIC Desktop
 Environment](https://system76.com/cosmic)**, built from source as Debian
