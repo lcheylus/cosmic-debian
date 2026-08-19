@@ -44,6 +44,9 @@ sudo systemctl set-default graphical.target
 
 ### 1. Shell script for installation
 
+`curl` and `jq` commands are needed to use the install script. Install them
+first with `sudo apt install curl jq` command if needed.
+
 **Download `install.sh` script shell**
 
 ```sh
