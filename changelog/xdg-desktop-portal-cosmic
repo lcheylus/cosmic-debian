@@ -1,3 +1,9 @@
+xdg-desktop-portal-cosmic (1.6.0) testing; urgency=medium
+
+  * new version for upstream release COSMIC epoch-1.6.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Wed, 19 Aug 2026 11:57:28 +0000
+
 xdg-desktop-portal-cosmic (1.5.0) testing; urgency=medium
 
   * new version for upstream release COSMIC epoch-1.5.0
