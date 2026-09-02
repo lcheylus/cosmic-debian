@@ -34,6 +34,12 @@ jobs:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
           extra-build-deps: ca-certificates
+          setup-hook: |
+            # Special case for cosmic-store => rewrite debian/control file
+            # to add flatpak in "Depends"
+            if grep -q -E "Source: cosmic-store$" debian/control; then
+              sed -i '/cosmic-icons,/a\  flatpak,' debian/control
+            fi
           before-build-hook: |
             # Replace build target in debian/rules files + no vendoring
             sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
