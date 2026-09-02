@@ -78,7 +78,7 @@ apt install -y accountsservice acpid adduser apt-config-icons apt-config-icons-h
 	gettext gnome-keyring iso-codes libegl1 libsecret-1-0 libwayland-server0 \
 	network-manager-applet network-manager-openvpn network-manager-openvpn-gnome \
 	pulseaudio-utils qalc switcheroo-control xkb-data xwayland \
-	libflatpak0 greetd
+	flatpak libflatpak0 greetd
 
 echo
 echo "[*] Install COSMIC depends from directory ${depends_dir}"
