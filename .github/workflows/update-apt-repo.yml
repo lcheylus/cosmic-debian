@@ -26,7 +26,7 @@ jobs:
     permissions:
       contents: read
     outputs:
-      keyring: ${{ steps.create-apt-repo.outputs.keyring }}
+      version: ${{ steps.check-artifacts.outputs.version }}
 
     steps:
       # Step mandatory to use 'gh release' command
@@ -41,6 +41,7 @@ jobs:
           gh release download --pattern '*.deb' --dir packages
 
       - name: Check downloaded artifacts from latest release
+        id: check-artifacts
         run: |
           ls -l packages/*.deb
           count=$(find packages -maxdepth 1 -type f -name '*.deb' | wc -l)
@@ -49,6 +50,12 @@ jobs:
             echo "ERROR: Expected 28 .deb files, found $count"
             exit 1
           fi
+
+          # Get COSMIC version from release
+          filename=$(find packages -maxdepth 1 -type f -name 'cosmic-session*')
+          release=$(basename "$filename" | sed -E 's/^cosmic-session_([^_]+)_amd64\.deb$/\1/')
+          echo "COSMIC release version = $release"
+          echo "version=${release}" >> "$GITHUB_OUTPUT"
 
       - name: Download artifacts from depends release
         run: |
@@ -112,9 +119,4 @@ jobs:
 
       - name: Adding summary
         run: |
-          echo '### Commands to install COSMIC Debian APT Repository' >> $GITHUB_STEP_SUMMARY
-          echo '' >> $GITHUB_STEP_SUMMARY
-          echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo 'sudo curl -sfLo /etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc ${{ steps.deployment.outputs.page_url }}gpg.key' >> $GITHUB_STEP_SUMMARY
-          echo 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/${{ needs.upload-artifacts.outputs.keyring }}.asc] ${{ steps.deployment.outputs.page_url }} ${{ env.CODENAME }} ${{ env.COMPONENTS }}" | sudo tee /etc/apt/sources.list.d/${{ env.REPO_NAME }}.list' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo '### APT Repository updated for COSMIC release ${{ needs.upload-artifacts.outputs.version }}' >> $GITHUB_STEP_SUMMARY
