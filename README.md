@@ -106,7 +106,7 @@ then update your local APT caches with `sudo apt update` command.
 Install the full COSMIC DE (all components, apps and depends) with `sudo apt install cosmic-session`.
 
 By default, COSMIC applications are installed with the full COSMIC DE. If you
-dont' want to install them, use the command `sudo apt install --no-install-recommends cosmic-session`.
+don't want to install them, use the command `sudo apt install --no-install-recommends cosmic-session`.
 
 ### Start COSMIC DE
 
