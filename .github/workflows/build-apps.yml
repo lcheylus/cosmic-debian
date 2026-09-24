@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [cosmic-edit, cosmic-files, cosmic-monitor, cosmic-player, cosmic-store, cosmic-term]
+        app: [cosmic-edit, cosmic-files, cosmic-monitor, cosmic-player, cosmic-store, cosmic-term, cosmic-viewer]
 
     steps:
       - name: Checkout sources
@@ -40,6 +40,12 @@ jobs:
             if grep -q -E "Source: cosmic-store$" debian/control; then
               sed -i '/cosmic-icons,/a\  flatpak,' debian/control
             fi
+            # Special case for cosmic-viewer => rewrite debian/control file
+            # to add aom-tools in "Build-Depends"
+            if grep -q -E "Source: cosmic-viewer$" debian/control; then
+              sed -i '/zlib1g-dev,/a\  aom-tools,' debian/control
+            fi
+
           before-build-hook: |
             # Replace build target in debian/rules files + no vendoring
             sed -i 's/VENDOR ?= 1/VENDOR ?= 0/' debian/rules
