@@ -33,7 +33,7 @@ jobs:
         with:
           docker-image: debian:testing
           buildpackage-opts: --build=binary --no-sign
-          extra-build-deps: ca-certificates
+          extra-build-deps: ca-certificates devscripts dpkg-dev libdistro-info-perl  # needed for dch and dpkg-parsechangelog tools
           setup-hook: |
             # Special case for cosmic-store => rewrite debian/control file
             # to add flatpak in "Depends"
@@ -49,6 +49,21 @@ jobs:
 
             # Remove .cargo/config.toml with vendored sources
             if [ -f .cargo/config.toml ]; then rm .cargo/config.toml; fi
+
+            # Check and update changelog if needed
+            echo "::group::Check/Update changelog"
+            current_version=$(dpkg-parsechangelog --show-field Version)
+            printf "current_version = %s\n" "${current_version}"
+            # Check version env.version > current version with 'sort -V'
+            if [ "${current_version}" != "${{ env.VERSION }}" ] && [ "$(printf '%s\n%s\n' "${current_version}" "${{ env.VERSION }}" | sort -V | head -n1)" = "${current_version}" ]; then
+              echo "new version = ${{ env.VERSION }}"
+              DEBEMAIL=foxy@free.fr DEBFULLNAME="Laurent Cheylus" dch -v "${{ env.VERSION }}"  --distribution testing "new version for upstream release COSMIC epoch-${{ env.VERSION }}"
+            else
+              echo "No need to update changelog for version ${{ env.VERSION }}"
+            fi
+            # Dump content without trailing newlines
+            printf '### debian/changelog file\n%s' "$(cat debian/changelog)"
+            echo "::endgroup::"
 
       - name: Get infos/contents for package
         run: |
