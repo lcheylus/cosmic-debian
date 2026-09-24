@@ -101,7 +101,7 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           docker-image: debian:testing
-          extra-build-deps: devscripts dpkg-dev libdistro-info-perl  # needed for dch and dpkg-parsechangelog tools
+          extra-build-deps: ca-certificates devscripts dpkg-dev libdistro-info-perl  # needed for dch and dpkg-parsechangelog tools
           setup-hook: |
             # Special case for cosmic-osd => rewrite debian/control file to remove
             # unecessary "Depends" on cosmic-randr
