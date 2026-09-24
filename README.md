@@ -170,6 +170,7 @@ List of all components necessary to install COSMIC Desktop Environment:
 - [cosmic-launcher](https://github.com/pop-os/cosmic-launcher) - COSMIC Launcher
 - [cosmic-notifications](https://github.com/pop-os/cosmic-notifications) - COSMIC Notifications
 - [cosmic-osd](https://github.com/pop-os/cosmic-osd) - COSMIC OSD
+- [cosmic-osk](https://github.com/pop-os/cosmic-osk) - COSMIC On-Screen Keyboard
 - [cosmic-panel](https://github.com/pop-os/cosmic-panel) - XDG Shell Wrapper Panel for COSMIC
 - [cosmic-randr](https://github.com/pop-os/cosmic-randr) - Display and configure Wayland display outputs
 - [cosmic-screenshot](https://github.com/pop-os/cosmic-screenshot) - COSMIC Screenshot Utility
@@ -193,6 +194,7 @@ Debian package but installation is optional.
 - [cosmic-player](https://github.com/pop-os/cosmic-player) -  Media Player
 - [cosmic-store](https://github.com/pop-os/cosmic-store) - Apps Store
 - [cosmic-term](https://github.com/pop-os/cosmic-term) -  Terminal
+- [cosmic-viewer](https://github.com/pop-os/cosmic-viewer) - Image Viewer
 
 Some components require additional dependencies. For example, `cosmic-icons`
 component needs `pop-icon-theme` package built from [icon-theme repository](https://github.com/pop-os/icon-theme/).
