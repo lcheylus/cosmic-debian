@@ -134,7 +134,6 @@ jobs:
 
             printf '### debian/rules file\n%s\n' "$(cat debian/rules)"
 
-            # TODO: Commit debian/changelog after release to keep changes
             echo "::group::Update changelog"
             current_version=$(dpkg-parsechangelog --show-field Version)
             printf "current_version = %s\n" "${current_version}"
