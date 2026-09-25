@@ -45,6 +45,7 @@ jobs:
           - cosmic-launcher
           - cosmic-notifications
           - cosmic-osd
+          - cosmic-osk
           - cosmic-panel
           - cosmic-randr
           - cosmic-screenshot
@@ -227,7 +228,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [cosmic-edit, cosmic-files, cosmic-monitor, cosmic-player, cosmic-store, cosmic-term]
+        app: [cosmic-edit, cosmic-files, cosmic-monitor, cosmic-player, cosmic-store, cosmic-term, cosmic-viewer]
 
     steps:
       - name: Checkout sources
@@ -250,6 +251,11 @@ jobs:
             # to add flatpak in "Depends"
             if grep -q -E "Source: cosmic-store$" debian/control; then
               sed -i '/cosmic-icons,/a\  flatpak,' debian/control
+            fi
+            # Special case for cosmic-viewer => rewrite debian/control file
+            # to add aom-tools in "Build-Depends"
+            if grep -q -E "Source: cosmic-viewer$" debian/control; then
+              sed -i '/zlib1g-dev,/a\  aom-tools,' debian/control
             fi
           before-build-hook: |
             # Replace build target in debian/rules files + no vendoring
@@ -297,9 +303,9 @@ jobs:
         run: |
           ls -l *.deb
           count=$(find . -maxdepth 1 -type f -name '*.deb' | wc -l)
-          # 22 artifacts for components + 6 apps
-          if [ "$count" -ne  28 ]; then
-            echo "ERROR: Expected 28 .deb files, found $count"
+          # 23 artifacts for components + 7 apps
+          if [ "$count" -ne  30 ]; then
+            echo "ERROR: Expected 30 .deb files, found $count"
             exit 1
           fi
 
@@ -321,7 +327,7 @@ jobs:
 
 
             Contains all the components necessary to install COSMIC DE and optional applications
-            (Edit, Files, Monitor, Player, Store and Term).
+            (Edit, Files, Monitor, Player, Store, Term and Viewer).
 
   commit-changelog:
     name: Commit updated changelog
