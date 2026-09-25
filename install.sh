@@ -18,7 +18,7 @@ KEEP="${KEEP:-0}"
 DEPENDS_TAG="depends-20260808"
 
 # COSMIC applications
-APPS="cosmic-edit cosmic-files cosmic-monitor cosmic-player cosmic-store cosmic-term"
+APPS="cosmic-edit cosmic-files cosmic-monitor cosmic-player cosmic-store cosmic-term cosmic-viewer"
 
 tmp_dir=$(mktemp -d -t cosmic-release-XXX)
 
