@@ -205,7 +205,7 @@ available as official Debian packages.
 | Package                                                        | Description                     | Needed by              |
 |----------------------------------------------------------------|---------------------------------|------------------------|
 | [adw-gtk3](https://github.com/pop-os/adw-gtk3)                 | libadwaita theme ported to GTK3 | cosmic-settings-daemon |
-| [appstream-data-pop](https://github.com/pop-os/appstream-data) | AppStream data for Pop!_OS      | cosmic-initial-setup<br>cosmic-store   |
+| [appstream-data-pop](https://github.com/pop-os/appstream-data) | AppStream data for Pop!_OS      | cosmic-initial-setup<br>cosmic-osk<br>cosmic-store |
 | [pop-fonts](https://github.com/pop-os/fonts)                   | Pop fonts                       | cosmic-session         |
 | [pop-icon-theme](https://github.com/pop-os/icon-theme)         | Pop icons                       | cosmic-icons           |
 | [pop-sound-theme](https://github.com/pop-os/gtk-theme/)        | Pop sound theme                 | cosmic-settings-daemon |
