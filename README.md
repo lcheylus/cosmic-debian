@@ -39,7 +39,7 @@ sudo systemctl set-default graphical.target
 ```
 
 2 methods are available to install the full COSMIC DE from this repository:
-  - [via an dedicated shell script](#1-shell-script-for-installation)
+  - [via a dedicated shell script](#1-shell-script-for-installation)
   - [via a Debian APT Repository](#2-debian-apt-repository)
 
 ### 1. Shell script for installation
