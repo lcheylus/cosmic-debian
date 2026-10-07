@@ -197,7 +197,7 @@ jobs:
 
       # TODO: add case to upload pop-launcher-system76-power package (pop-launcher)
       - name: Upload package
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           path: debian/artifacts/${{ matrix.component }}_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
@@ -207,7 +207,7 @@ jobs:
       # Special case for cosmic-greeter component: 2 packages built
       - name: Upload cosmic-greeter-daemon
         if: ${{ matrix.component == 'cosmic-greeter' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           path: debian/artifacts/${{ matrix.component }}-daemon_${{ env.VERSION }}_${{ matrix.arch }}.deb
           if-no-files-found: error
@@ -215,7 +215,7 @@ jobs:
           archive: false
 
       - name: Upload changelog file for ${{ matrix.component }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: ${{ matrix.component }}
           path: "local-debian/changelog/${{ matrix.component }}"
@@ -292,7 +292,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Upload package
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  #v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           path: debian/artifacts/${{ matrix.app }}_${{ env.VERSION }}_amd64.deb
           if-no-files-found: error
