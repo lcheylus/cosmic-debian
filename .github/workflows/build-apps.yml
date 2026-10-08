@@ -12,7 +12,7 @@ jobs:
   build-apps:
     name: Build ${{ matrix.app }}
     env:
-      VERSION: 1.9.0
+      VERSION: 1.10.0
     runs-on: ubuntu-latest
     strategy:
       matrix:
