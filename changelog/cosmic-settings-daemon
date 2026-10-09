@@ -1,3 +1,9 @@
+cosmic-settings-daemon (1.10.0) testing; urgency=medium
+
+  * new version for upstream release COSMIC epoch-1.10.0
+
+ -- Laurent Cheylus <foxy@free.fr>  Fri, 09 Oct 2026 07:52:43 +0000
+
 cosmic-settings-daemon (1.9.0) testing; urgency=medium
 
   * new version for upstream release COSMIC epoch-1.9.0
